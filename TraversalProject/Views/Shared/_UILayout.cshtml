@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+>
+<html lang="tr">
+@await Component.InvokeAsync("_UIHeaderComponentPartial")
+<body>
+    @RenderBody()
+    @await Component.InvokeAsync("_UIFooterComponentPartial")
+    @await Component.InvokeAsync("_UIScriptsComponentPartial")
+    Burada kalındı ders #14 incelenecek devam edilecek.
+</body>
+</html>
