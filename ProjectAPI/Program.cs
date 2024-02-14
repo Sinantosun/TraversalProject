@@ -1,11 +1,24 @@
+
+
+using BussinessLayer.Abstract;
+using BussinessLayer.Concrete;
+using DataAccsesLayer.Abstract;
+using DataAccsesLayer.Concrete;
+using DataAccsesLayer.EntityFreamework;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddDbContext<Context>();
+builder.Services.AddScoped<IDestinationService, DestinationManager>();
+builder.Services.AddScoped<IDestinationDal, EFDestinationDal>();
 
 var app = builder.Build();
 

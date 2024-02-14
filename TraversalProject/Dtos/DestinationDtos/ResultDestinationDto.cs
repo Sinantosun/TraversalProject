@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EntityLayer.Concrete
+﻿namespace TraversalProject.DestinationDtos
 {
-    public class Destination
+    public class ResultDestinationDto
     {
-        [Key]
         public int DestinationID { get; set; }
         public string City { get; set; }
         public string DayNight { get; set; }

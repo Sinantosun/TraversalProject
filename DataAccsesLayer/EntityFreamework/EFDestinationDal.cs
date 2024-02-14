@@ -10,5 +10,11 @@ namespace DataAccsesLayer.EntityFreamework
         public EFDestinationDal(Context context) : base(context)
         {
         }
+
+        public int getDestinationCount()
+        {
+            using var context = new Context();
+            return context.Destinations.Count();
+        }
     }
 }

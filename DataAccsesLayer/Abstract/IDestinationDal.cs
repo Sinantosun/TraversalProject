@@ -4,5 +4,6 @@ namespace DataAccsesLayer.Abstract
 {
     public interface IDestinationDal:IGenericDal<Destination>
     {
+        int getDestinationCount();
     }
 }

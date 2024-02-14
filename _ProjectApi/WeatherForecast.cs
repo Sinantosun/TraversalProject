@@ -1,4 +1,4 @@
-namespace ProjectAPI
+namespace _ProjectApi
 {
     public class WeatherForecast
     {

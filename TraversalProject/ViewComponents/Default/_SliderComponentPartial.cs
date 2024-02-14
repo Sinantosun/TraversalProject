@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TraversalProject.VievComponents._UILayoutComponents
+namespace TraversalProject.ViewComponents.Default
 {
-    public class _UIFooterComponentPartial : ViewComponent
+    public class _SliderComponentPartial : ViewComponent
     {
         public IViewComponentResult Invoke()
         {
