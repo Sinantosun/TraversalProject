@@ -8,12 +8,12 @@ namespace ProjectAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Destinations : ControllerBase
+    public class DestinationsController : ControllerBase
     {
         private readonly IDestinationService _destinationService;
         private readonly IMapper mapper;
 
-        public Destinations(IDestinationService destinationService, IMapper mapper)
+        public DestinationsController(IDestinationService destinationService, IMapper mapper)
         {
             _destinationService = destinationService;
             this.mapper = mapper;

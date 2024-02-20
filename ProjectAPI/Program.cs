@@ -20,6 +20,15 @@ builder.Services.AddDbContext<Context>();
 builder.Services.AddScoped<IDestinationService, DestinationManager>();
 builder.Services.AddScoped<IDestinationDal, EFDestinationDal>();
 
+builder.Services.AddScoped<IFeatureService, FeatureManager>();
+builder.Services.AddScoped<IFeatureDal, EFFeatureDal>();
+
+builder.Services.AddScoped<ISubAboutService, SubAboutManager>();
+builder.Services.AddScoped<ISubAboutDal, EFSubAboutDal>();
+
+builder.Services.AddScoped<ITestimionalService, TestimonialManager>();
+builder.Services.AddScoped<ITestimonialDal, EFTestimonialDal>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
