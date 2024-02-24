@@ -1,4 +1,6 @@
-﻿namespace BussinessLayer.Abstract
+﻿using System.Linq.Expressions;
+
+namespace BussinessLayer.Abstract
 {
     public interface IGenericService<T> where T : class
     {

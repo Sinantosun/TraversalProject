@@ -2,7 +2,7 @@
     Layout = null;
 }
 
-<html lang="tr">
+@* <html lang="tr">
 @await Html.PartialAsync("~/Views/LayoutPartial/_UIHeaderPartial.cshtml")
 <body>
 
@@ -13,4 +13,24 @@
     @await Html.PartialAsync("~/Views/LayoutPartial/_UIScriptsPartial.cshtml")
 
 </body>
+</html>
+ *@
+
+
+
+<!doctype html>
+<html lang="tr">
+
+@await Html.PartialAsync("~/Views/LayoutPartial/_UIHeaderPartial.cshtml")
+
+<body>
+    @await Html.PartialAsync("~/Views/LayoutPartial/_NavbarPartial.cshtml")
+    @RenderBody()
+    @await Html.PartialAsync("~/Views/LayoutPartial/_UIFooterPartial.cshtml")
+
+    @await Html.PartialAsync("~/Views/LayoutPartial/_UIScriptsPartial.cshtml")
+   
+
+</body>
+
 </html>

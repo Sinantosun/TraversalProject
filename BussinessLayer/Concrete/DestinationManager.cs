@@ -1,6 +1,7 @@
 ﻿using BussinessLayer.Abstract;
 using DataAccsesLayer.Abstract;
 using EntityLayer.Concrete;
+using System.Linq.Expressions;
 
 namespace BussinessLayer.Concrete
 {
@@ -31,6 +32,11 @@ namespace BussinessLayer.Concrete
         public List<Destination> TGetList()
         {
             return _IDestinationDal.GetList();
+        }
+
+        public List<Destination> TGetListByFilter(Expression<Func<Destination, bool>> filter)
+        {
+            return _IDestinationDal.GetListByFilter(filter);
         }
 
         public void TInsert(Destination t)

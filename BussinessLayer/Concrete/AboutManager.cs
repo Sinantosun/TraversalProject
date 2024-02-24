@@ -2,6 +2,7 @@
 using BussinessLayer.Abstract;
 using DataAccsesLayer.Abstract;
 using EntityLayer.Concrete;
+using System.Linq.Expressions;
 
 namespace BussinessLayer.Concrete
 {
@@ -27,6 +28,11 @@ namespace BussinessLayer.Concrete
         public List<About> TGetList()
         {
             return _IAboutDal.GetList();
+        }
+
+        public List<About> TGetListByFilter(Expression<Func<About, bool>> filter)
+        {
+            return _IAboutDal.GetListByFilter(filter);
         }
 
         public void TInsert(About t)

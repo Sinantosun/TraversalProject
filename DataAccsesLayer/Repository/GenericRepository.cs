@@ -1,6 +1,7 @@
 ﻿using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DataAccsesLayer.Repository
 {
@@ -27,6 +28,11 @@ namespace DataAccsesLayer.Repository
         public List<T> GetList()
         {
             return _context.Set<T>().AsNoTracking().ToList();
+        }
+
+        public List<T> GetListByFilter(Expression<Func<T, bool>> filter)
+        {
+            return _context.Set<T>().Where(filter).ToList();
         }
 
         public void Insert(T t)

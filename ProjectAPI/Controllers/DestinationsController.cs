@@ -25,5 +25,12 @@ namespace ProjectAPI.Controllers
             var value = mapper.Map<List<ResultDestinationDto>>(_destinationService.TGetList());
             return Ok(value);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult getDestinationByID(int id)
+        {
+            var value = mapper.Map<ResultByIdForDestinationDto>(_destinationService.TGetById(id));
+            return Ok(value);
+        }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccsesLayer.Concrete
 {
-    public class Context : IdentityDbContext<AppUser, AppRole, int>
+    public class Context : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -17,7 +17,7 @@ namespace DataAccsesLayer.Concrete
         public DbSet<ContactUs> ContactUses { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Feature> Features { get; set; }
-     
+
         public DbSet<Guide> Guides { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
         public DbSet<SubAbout> SubAbouts { get; set; }
