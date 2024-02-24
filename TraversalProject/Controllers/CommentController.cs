@@ -9,7 +9,7 @@ namespace TraversalProject.Controllers
     public class CommentController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
+        //29 dersden başlanacak identiy ile giriş yapmada kalındı. 
         public CommentController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
