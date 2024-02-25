@@ -1,6 +1,6 @@
 ﻿
 
-namespace TraversalProject.SubAboutDtos
+namespace TraversalProject.Dtos.SubAboutDtos
 {
     public class ResultSubAboutDto
     {

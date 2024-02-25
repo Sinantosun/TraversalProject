@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TraversalProject.SubAboutDtos;
+using TraversalProject.Dtos.SubAboutDtos;
 
 namespace TraversalProject.ViewComponents.Default
 {

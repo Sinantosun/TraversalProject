@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
-using TraversalProject.StatisticsDtos;
+using TraversalProject.Dtos.StatisticsDtos;
 
 namespace TraversalProject.ViewComponents.Default
 {

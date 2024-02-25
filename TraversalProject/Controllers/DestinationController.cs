@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TraversalProject.DestinationDtos;
+using TraversalProject.Dtos.DestinationDtos;
 
 namespace TraversalProject.Controllers
 {

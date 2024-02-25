@@ -1,5 +1,5 @@
 ﻿
-namespace TraversalProject.StatisticsDtos
+namespace TraversalProject.Dtos.StatisticsDtos
 {
     public class ResultStatisticsDto
     {

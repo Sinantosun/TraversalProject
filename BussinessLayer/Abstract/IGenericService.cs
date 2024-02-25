@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BussinessLayer.Abstract
+namespace BussinessLayer.AbstractValidator
 {
     public interface IGenericService<T> where T : class
     {

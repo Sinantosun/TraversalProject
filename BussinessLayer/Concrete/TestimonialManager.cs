@@ -1,5 +1,5 @@
 ﻿
-using BussinessLayer.Abstract;
+using BussinessLayer.AbstractValidator;
 using DataAccsesLayer.Abstract;
 using EntityLayer.Concrete;
 using System.Linq.Expressions;

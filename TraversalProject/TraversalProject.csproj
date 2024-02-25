@@ -23,8 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BussinessLayer\BussinessLayer.csproj" />
     <ProjectReference Include="..\DataAccsesLayer\DataAccsesLayer.csproj" />
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Members\Data\" />
+    <Folder Include="Areas\Members\Models\" />
   </ItemGroup>
 
 </Project>

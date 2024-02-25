@@ -1,4 +1,4 @@
-﻿using BussinessLayer.Abstract;
+﻿using BussinessLayer.AbstractValidator;
 using DtoLayer.StatisticsDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

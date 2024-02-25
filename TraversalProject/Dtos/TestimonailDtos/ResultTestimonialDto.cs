@@ -1,6 +1,6 @@
 ﻿
 
-namespace TraversalProject.TestimonailDtos
+namespace TraversalProject.Dtos.TestimonailDtos
 {
     public class ResultTestimonialDto
     {

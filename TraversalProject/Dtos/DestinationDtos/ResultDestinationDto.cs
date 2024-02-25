@@ -1,4 +1,4 @@
-﻿namespace TraversalProject.DestinationDtos
+﻿namespace TraversalProject.Dtos.DestinationDtos
 {
     public class ResultDestinationDto
     {

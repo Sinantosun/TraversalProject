@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TraversalProject.CommentDtos;
+using TraversalProject.Dtos.CommentDtos;
 
 namespace TraversalProject.ViewComponents.Comment
 {

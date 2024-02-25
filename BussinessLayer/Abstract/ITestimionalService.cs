@@ -1,7 +1,7 @@
 ﻿using EntityLayer.Concrete;
 
 
-namespace BussinessLayer.Abstract
+namespace BussinessLayer.AbstractValidator
 {
     public interface ITestimionalService : IGenericService<Testimonial>
     {

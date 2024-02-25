@@ -1,6 +1,6 @@
 
 
-using BussinessLayer.Abstract;
+using BussinessLayer.AbstractValidator;
 using BussinessLayer.Concrete;
 using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;

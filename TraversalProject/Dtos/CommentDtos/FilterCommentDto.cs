@@ -1,5 +1,5 @@
 ﻿
-namespace TraversalProject.CommentDtos
+namespace TraversalProject.Dtos.CommentDtos
 {
     public class FilterCommentDto
     {

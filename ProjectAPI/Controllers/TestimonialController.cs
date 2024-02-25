@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BussinessLayer.Abstract;
+using BussinessLayer.AbstractValidator;
 using DtoLayer.TestimonailDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

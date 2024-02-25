@@ -1,4 +1,4 @@
-﻿using BussinessLayer.Abstract;
+﻿using BussinessLayer.AbstractValidator;
 using DtoLayer.CommentDtos;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;

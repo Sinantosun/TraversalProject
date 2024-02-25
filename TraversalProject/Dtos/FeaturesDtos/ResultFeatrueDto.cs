@@ -1,5 +1,4 @@
-﻿
-namespace TraversalProject.FeaturesDtos
+﻿namespace TraversalProject.Dtos.FeaturesDtos
 {
     public class ResultFeatrueDto
     {
