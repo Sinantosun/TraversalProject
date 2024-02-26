@@ -14,6 +14,7 @@
         <div class="container-fluid py-4">
           @RenderBody()
             @await Html.PartialAsync("~/Views/MemberLayoutPartial/_FooterPartial.cshtml")
+            @await Html.PartialAsync("~/Views/MemberLayoutPartial/_FixedPlugin.cshtml")
         </div>
     </main>
     @await Html.PartialAsync("~/Views/MemberLayoutPartial/_ScriptPartial.cshtml")

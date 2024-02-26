@@ -1,0 +1,41 @@
+﻿@model UpdateUserDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<h4>Profile Güncelleme Sayfası</h4>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        @Html.Label("Adınız")
+        <input type="text" asp-for="name" class="form-control" />
+    </div>
+    <div class="form-group">
+        @Html.Label("Soyadınız")
+        <input type="text" asp-for="surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        @Html.Label("Mail Adresiniz")
+        <input type="text" asp-for="email" class="form-control" />
+    </div>
+    <div class="form-group">
+        @Html.Label("Şifreniz")
+        <input type="password" asp-for="password" class="form-control" />
+    </div>
+    <div class="form-group">
+        @Html.Label("Şifre Tekrar")
+        <input type="password" asp-for="confirmpassword" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Telefon numarası")
+        <input type="text" asp-for="phoneNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Resim Seçiniz")
+        <input type="file" asp-for="Image" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Güncelle" class="btn btn-outline-light" />
+    </div> 
+</form>

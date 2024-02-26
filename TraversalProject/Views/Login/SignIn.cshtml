@@ -1,45 +1,56 @@
-﻿@{
+﻿@using DtoLayer.LoginDtos
+@model LoginDto
+
+@{
     Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>RegistrationForm_v10 by Colorlib</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- LINEARICONS -->
-	<link rel="stylesheet" href="/colorlib-regform-26/fonts/linearicons/style.css">
-
-	<!-- STYLE CSS -->
-	<link rel="stylesheet" href="/colorlib-regform-26/css/style.css">
+    <meta charset="utf-8">
+    <title>RegistrationForm_v10 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/colorlib-regform-26/fonts/linearicons/style.css">
+    <link rel="stylesheet" href="/colorlib-regform-26/css/style.css">
+    @if (TempData["result"] != null)
+    {
+        <script>
+            console.log('test');
+        </script>
+    }
 </head>
-
 <body>
+    <div class="wrapper">
+        <div class="inner">
+            <form method="post">
+                <h3>Giriş Yap</h3>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text"  class="form-control" asp-for="UserName" placeholder="Kullanıcı Adınız">
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Şifreniz">
+                </div>
+                <br />
+                <div class="text-danger" style="text-align:center; color:red; font-weight:bold;" asp-validation-summary="All">
 
-	<div class="wrapper">
-		<div class="inner">
-			<form action="">
-				<h3>Giriş Yap</h3>
-				<div class="form-holder">
-					<span class="lnr lnr-user"></span>
-					<input type="text" class="form-control" placeholder="Kullanıcı Adınız">
-				</div>
-				<div class="form-holder">
-					<span class="lnr lnr-lock"></span>
-					<input type="password" class="form-control" placeholder="Şifreniz">
-				</div>
-				<button>
-					<span>Giriş Yap</span>
-				</button>
-			</form>
-			<img src="/colorlib-regform-26/images/image-2.png" alt="" class="image-2">
-		</div>
+                </div><br />
+                <span><a href="/Login/SignUp">Henüz Üye Değilim</a></span>
+                <button>
+                    <span>Giriş Yap</span>
+                </button>
+              
+            </form>
+            <img src="/colorlib-regform-26/images/image-2.png" alt="" class="image-2">
+        </div>
+    </div>
+    <script src="/colorlib-regform-26/js/jquery-3.3.1.min.js"></script>
 
-	</div>
+    <script src="/colorlib-regform-26/js/main.js"></script>
 
-	<script src="/colorlib-regform-26/js/jquery-3.3.1.min.js"></script>
-	<script src="/colorlib-regform-26/js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+  
+</body>
 </html>

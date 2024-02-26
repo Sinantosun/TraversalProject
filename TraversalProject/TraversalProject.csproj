@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="Areas\Members\Data\" />
     <Folder Include="Areas\Members\Models\" />
+    <Folder Include="wwwroot\userimages\" />
   </ItemGroup>
 
 </Project>

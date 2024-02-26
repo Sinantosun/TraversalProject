@@ -32,6 +32,10 @@ builder.Services.AddScoped<ITestimonialDal, EFTestimonialDal>();
 builder.Services.AddScoped<ICommentService, CommentManager>();
 builder.Services.AddScoped<ICommentDal, EFCommentDal>();
 
+builder.Services.AddScoped<IReservationService, ReservationManager>();
+builder.Services.AddScoped<IReservationDal, EFReservationDal>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

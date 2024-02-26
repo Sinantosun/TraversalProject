@@ -1,0 +1,93 @@
+﻿@using TraversalProject.Dtos.DestinationDtos;
+@model List<ResultDestinationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@* <table class="table table-hover">
+    <tr>
+        <td>#</td>
+        <td>Şehir</td>
+        <td>Süre</td>
+        <td>Kapasite</td>
+        <td>Fiyat</td>
+        <td>Detaylar</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.DestinationID</td>
+            <td>@item.City</td>
+            <td>@item.DayNight</td>
+            <td>@item.Capacity</td>
+            <td>@(Convert.ToDecimal(item.Price).ToString("C2"))  </td>
+            <td><a href="#" class="btn btn-outline-info">Detaylar</a></td>
+        </tr>
+
+
+    }
+</table>
+ *@
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Aktif Tur Rotalarımız</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Şehir</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Süre</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kapasite</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fiyat</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Detaylar</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">@item.DestinationID</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <p class="text-xs font-weight-bold mb-0">@item.City</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">@item.DayNight</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">@item.Capacity</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">@item.Price</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <a href="/Destination/DestinationDetails/@item.DestinationID" class="text-secondary font-weight-bold text-xs"  data-original-title="Edit user">
+                                                Detay Gör
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                         
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

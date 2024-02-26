@@ -1,12 +1,16 @@
+using BussinessLayer.AbstractValidator;
+using BussinessLayer.Concrete;
+using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
+using DataAccsesLayer.EntityFreamework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using TraversalProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+builder.Services.AddScoped<IDestinationService, DestinationManager>();
+builder.Services.AddScoped<IDestinationDal, EFDestinationDal>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser, AppRole>(opts =>
