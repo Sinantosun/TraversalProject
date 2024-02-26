@@ -1,20 +1,17 @@
 ﻿@model List<ResultReservationByIdDto>
-
 @{
-    ViewData["Title"] = "MyCurrentReservation";
+    ViewData["Title"] = "MyApprovalReservation";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-
-
-<h1>Aktif Rezervasyonlarım</h1>
+<h1>Onay Bekliyen Rezervasyonlarım</h1>
 <br />
 <br />
 @if (!Model.Any())
 {
     <div class="alert alert-danger" style="color:white; font-weight:bold" role="alert">
-        Henüz Hiç Aktif Rezervasyonunuz Yok, Yeni Rezervasyon Oluşturmak İçin <a style="color:azure; text-decoration:underline" href="/Members/Reservation/NewReservation">Tıklayın!</a>
+        Onay Bekliyen Rezervasyonunuz Bulunamadı.. Yeni Rezervasyon Oluşturmak İçin <a style="color:azure; text-decoration:underline" href="/Members/Reservation/NewReservation">Tıklayın!</a>
     </div>
-
+   
 }
 else
 {
@@ -37,7 +34,5 @@ else
             </tr>
         }
     </table>
-
+    
 }
-
-

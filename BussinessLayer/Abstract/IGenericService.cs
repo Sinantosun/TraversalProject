@@ -9,5 +9,6 @@ namespace BussinessLayer.AbstractValidator
         void TUpdate(T t);
         T TGetById(int id);
         List<T> TGetList();
+
     }
 }

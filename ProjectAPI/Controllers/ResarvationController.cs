@@ -1,4 +1,5 @@
-﻿using BussinessLayer.AbstractValidator;
+﻿using AutoMapper;
+using BussinessLayer.AbstractValidator;
 using DtoLayer.ReservationDtos;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +13,12 @@ namespace ProjectAPI.Controllers
     public class ResarvationController : ControllerBase
     {
         private readonly IReservationService _reservationService;
+        private readonly IMapper _mapper;
 
-        public ResarvationController(IReservationService reservationService)
+        public ResarvationController(IReservationService reservationService, IMapper mapper)
         {
             _reservationService = reservationService;
+            _mapper = mapper;
         }
 
         [HttpGet("SelectListForDropdown")]
@@ -25,6 +28,26 @@ namespace ProjectAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("GetApproveReservations/id")]
+        public IActionResult GetApproveReservations(int id)
+        {
+            var mappedValues = _mapper.Map<List<ResultReservationByIdDto>>(_reservationService.TGetListWithReservationByWaitApproval(id));
+            return Ok(mappedValues);
+        }
+
+        [HttpGet("GetCurrentReservations/id")]
+        public IActionResult GetCurrentReservations(int id)
+        {
+            var mappedValues = _mapper.Map<List<ResultReservationByIdDto>>(_reservationService.TGetListWithReservationByAccepted(id));
+            return Ok(mappedValues);
+        }
+
+        [HttpGet("GetOldReservation/id")]
+        public IActionResult GetOldReservation(int id)
+        {
+            var mappedValues = _mapper.Map<List<ResultReservationByIdDto>>(_reservationService.TGetListWithReservationByPrevious(id));
+            return Ok(mappedValues);
+        }
 
         [HttpPost]
         public IActionResult CreateReservation(CreateResarvationDto createResarvationDto)
@@ -34,7 +57,7 @@ namespace ProjectAPI.Controllers
             {
                AppUserId=createResarvationDto.AppUserId,
                Description=createResarvationDto.Description,
-               Destination=createResarvationDto.Destination,
+              // Destination=createResarvationDto.Destination,
                PersonCount=createResarvationDto.PersonCount,
                ReservastionDate=createResarvationDto.ReservastionDate,
                Status=createResarvationDto.Status,

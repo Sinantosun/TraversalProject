@@ -33,6 +33,21 @@ namespace BussinessLayer.Concrete
             return _reservationDal.GetList();
         }
 
+        public List<Reservation> TGetListWithReservationByAccepted(int id)
+        {
+            return _reservationDal.GetListWithReservationByAccepted(id);
+        }
+
+        public List<Reservation> TGetListWithReservationByPrevious(int id)
+        {
+            return _reservationDal.GetListWithReservationByPrevious(id);
+        }
+
+        public List<Reservation> TGetListWithReservationByWaitApproval(int id)
+        {
+            return _reservationDal.GetListWithReservationByWaitApproval(id);
+        }
+
         public void TInsert(Reservation t)
         {
             _reservationDal.Insert(t);

@@ -1,5 +1,7 @@
 ﻿using BussinessLayer.AbstractValidator;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -13,19 +15,53 @@ namespace TraversalProject.Areas.Members.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IDestinationService _destinationService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ReservationController(IHttpClientFactory httpClientFactory, IDestinationService destinationService)
+
+        public ReservationController(IHttpClientFactory httpClientFactory, IDestinationService destinationService, UserManager<AppUser> userManager)
         {
             _httpClientFactory = httpClientFactory;
             _destinationService = destinationService;
+            _userManager = userManager;
         }
 
-        public IActionResult MyCurrentReservation()
+        public async Task<IActionResult> MyCurrentReservation()
         {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var client = _httpClientFactory.CreateClient();
+            var ResponseMessage = await client.GetAsync($"http://localhost:5075/api/Resarvation/GetCurrentReservations/id?id={values.Id}");
+            if (ResponseMessage.IsSuccessStatusCode)
+            {
+                var data = await ResponseMessage.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<ResultReservationByIdDto>>(data);
+                return View(result);
+            }
             return View();
         }
-        public IActionResult MyOldReservation()
+        public async Task<IActionResult> MyOldReservation()
         {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var client = _httpClientFactory.CreateClient();
+            var ResponseMessage = await client.GetAsync($"http://localhost:5075/api/Resarvation/GetOldReservation/id?id={values.Id}");
+            if (ResponseMessage.IsSuccessStatusCode)
+            {
+                var data = await ResponseMessage.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<ResultReservationByIdDto>>(data);
+                return View(result);
+            }
+            return View();
+        }
+        public async Task<IActionResult> MyApprovalReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var client = _httpClientFactory.CreateClient();
+            var ResponseMessage = await client.GetAsync($"http://localhost:5075/api/Resarvation/GetApproveReservations/id?id={values.Id}");
+            if (ResponseMessage.IsSuccessStatusCode)
+            {
+                var data = await ResponseMessage.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<ResultReservationByIdDto>>(data);
+                return View(result);
+            }
             return View();
         }
 
@@ -47,11 +83,11 @@ namespace TraversalProject.Areas.Members.Controllers
             var client = _httpClientFactory.CreateClient();
             var data = JsonConvert.SerializeObject(createResarvationDto);
             StringContent str = new StringContent(data, Encoding.UTF8, "application/json");
-            var x =  await client.PostAsync("http://localhost:5075/api/Resarvation", str);
+            var x = await client.PostAsync("http://localhost:5075/api/Resarvation", str);
             return View("MyCurrentReservation");
-            
 
-            
+
+
         }
     }
 }

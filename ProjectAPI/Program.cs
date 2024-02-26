@@ -6,6 +6,7 @@ using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
 using DataAccsesLayer.EntityFreamework;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ builder.Services.AddScoped<ICommentDal, EFCommentDal>();
 
 builder.Services.AddScoped<IReservationService, ReservationManager>();
 builder.Services.AddScoped<IReservationDal, EFReservationDal>();
+
+builder.Services.AddControllersWithViews().AddJsonOptions(opts =>
+    opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 
 var app = builder.Build();
