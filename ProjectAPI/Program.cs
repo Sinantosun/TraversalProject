@@ -36,6 +36,9 @@ builder.Services.AddScoped<ICommentDal, EFCommentDal>();
 builder.Services.AddScoped<IReservationService, ReservationManager>();
 builder.Services.AddScoped<IReservationDal, EFReservationDal>();
 
+builder.Services.AddScoped<IGuideService, GuideManager>();
+builder.Services.AddScoped<IGuideDal, EFGuideDal>();
+
 builder.Services.AddControllersWithViews().AddJsonOptions(opts =>
     opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

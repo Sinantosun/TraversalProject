@@ -8,7 +8,7 @@ using TraversalProject.Areas.Members.Dto.IdentityDtos;
 namespace TraversalProject.Areas.Members.Controllers
 {
     [Area("Members")]
-    [Route("Member/[controller]/[action]")]
+    [Route("Members/[controller]/[action]")]
     public class ProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

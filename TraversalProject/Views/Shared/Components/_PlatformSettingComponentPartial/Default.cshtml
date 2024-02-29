@@ -1,0 +1,93 @@
+﻿@{
+
+    string text = "";
+    string check = "";
+
+
+    if (ViewBag.twoFactorConfirm == true)
+    {
+        text = "İki Adımlı Doğrulamayı Kapat";
+        check = "checked";
+
+    }
+    else
+    {
+        check = "";
+        text = "İki Adımlı Doğrulamayı Aktifleştir";
+    }
+}
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/changetwofactorstatus.js"></script>
+<script src="~/js/sweetalert2.min.js"></script>
+<link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">İki Adımlı Doğrulama Aktifleştir</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="password" placeholder="Şifreniz" name="pwd"  class="form-control pwd"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success modelbtnsubmit" data-bs-dismiss="modal">Gönder</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-12 col-xl-4">
+    <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+            <h6 class="mb-0">Platform Ayarları</h6>
+        </div>
+        <div class="card-body p-3">
+            <h6 class="text-uppercase text-body text-xs font-weight-bolder">Hesap</h6>
+            <ul class="list-group">
+                <li class="list-group-item border-0 px-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" @check>
+
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">@text</label>
+                    </div>
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault1">
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Her Üç Ayda Bir Şifremi Güncelle</label>
+                    </div>
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2">
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Mention İşlemlerinde Mail Bilgisi Gönder</label>
+                    </div>
+                </li>
+            </ul>
+            <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Mail Bülteni</h6>
+            <ul class="list-group">
+                <li class="list-group-item border-0 px-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault3">
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">Yeni Tur Rotaları Eklenince Mail Gönder</label>
+                    </div>
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault4">
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Aylık Tur Bülteni Hakkında Maille Bilgilendir</label>
+                    </div>
+                </li>
+                <li class="list-group-item border-0 px-0 pb-0">
+                    <div class="form-check form-switch ps-0">
+                        <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault5">
+                        <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Youtube'da Yeni Video Paylaşınca Bildirim Gönder</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
