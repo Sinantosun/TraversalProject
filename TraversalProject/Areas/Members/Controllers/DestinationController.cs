@@ -6,7 +6,6 @@ using TraversalProject.Dtos.DestinationDtos;
 namespace TraversalProject.Areas.Members.Controllers
 {
     [Area("Members")]
-    [AllowAnonymous]
     public class DestinationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

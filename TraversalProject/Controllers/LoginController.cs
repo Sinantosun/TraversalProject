@@ -1,4 +1,5 @@
-﻿using BussinessLayer.ValidationRules;
+﻿using BussinessLayer.Abstract;
+using BussinessLayer.ValidationRules;
 using DtoLayer.LoginDtos;
 using DtoLayer.RegisterDtos;
 using EntityLayer.Concrete;
@@ -15,11 +16,13 @@ namespace TraversalProject.Controllers
     {
         private readonly UserManager<AppUser> _usermanger;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IMailService _mailService;
 
-        public LoginController(UserManager<AppUser> usermanger, SignInManager<AppUser> signInManager)
+        public LoginController(UserManager<AppUser> usermanger, SignInManager<AppUser> signInManager, IMailService mailService)
         {
             _usermanger = usermanger;
             _signInManager = signInManager;
+            _mailService = mailService;
         }
 
         [HttpGet]
@@ -90,9 +93,24 @@ namespace TraversalProject.Controllers
             if (valide.IsValid)
             {
                 await _signInManager.SignOutAsync();
-
+                var user = await _usermanger.FindByNameAsync(loginDto.UserName);
                 var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, false, true);
-                if (result.Succeeded)
+                if (result.RequiresTwoFactor)
+                {
+                    var genareteTwoFactorToken = await _usermanger.GenerateTwoFactorTokenAsync(user, "Email");
+                    ResultDto MailResult2 = _mailService.SendMail2("İki Adımlı Doğrulama Kodu", "Doğrulama Kodunuz: " + genareteTwoFactorToken, user.Email);
+
+                    if (MailResult2.status == true)
+                    {
+                        return RedirectToAction("TwoFactorAuth", "Login");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", MailResult2.description);
+                        return View();
+                    }
+                }
+                else if (result.Succeeded)
                 {
                     if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
                         return RedirectToAction("Index", "Profile", new { area = "Members" });
@@ -115,11 +133,26 @@ namespace TraversalProject.Controllers
 
                 return View();
             }
-
-
+        }
+        [HttpGet("[action]")]
+        public async Task<IActionResult> TwoFactorAuth()
+        {
+            return View();
         }
 
-
-
+        [HttpPost("[action]")]
+        public async Task<IActionResult> TwoFactorAuth(string token)
+        {
+            var SignInTwoFactor = await _signInManager.TwoFactorSignInAsync("Email", token, false, false);
+            if (SignInTwoFactor.Succeeded)
+            {
+                return RedirectToAction("Index", "Profile", new { area = "Members" });
+            }
+            else
+            {
+                ViewBag.Err = "Doğrulama Kodunuz Hatalı.";
+            }
+            return RedirectToAction("TwoFactorAuth","Login");
+        }
     }
 }

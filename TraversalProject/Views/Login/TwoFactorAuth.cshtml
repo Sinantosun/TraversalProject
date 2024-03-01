@@ -1,7 +1,4 @@
-﻿@using DtoLayer.LoginDtos
-@model LoginDto
-
-@{
+﻿@{
     Layout = null;
 }
 
@@ -18,19 +15,19 @@
     <div class="wrapper">
         <div class="inner">
             <form method="post">
-                <h3>Giriş Yap</h3>
-                <div class="form-holder">
-                    <span class="lnr lnr-user"></span>
-                    <input type="text" class="form-control" asp-for="UserName" placeholder="Kullanıcı Adınız">
-                </div>
+                <h3>İki Adımlı Doğrulama Ekranı</h3>
+                <h4 style="text-align:center">Mail Adresinize Gelen Şifreyi Giriniz.</h4><br />
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
-                    <input type="password" class="form-control" asp-for="Password" placeholder="Şifreniz">
+                    <input type="text" class="form-control" name="token" placeholder="Doğrulama Kodu">
                 </div>
                 <br />
-                <div class="text-danger" style="text-align:center; color:red; font-weight:bold;" asp-validation-summary="All">
-                </div><br />
-                <span><a href="/Login/SignUp">Henüz Üye Değilim</a></span>
+                @if (ViewBag.Err != null)
+                {
+                    <div class="text-danger" style="text-align:center; color:red; font-weight:bold;">
+                        @ViewBag.Err
+                    </div>
+                }
                 <button>
                     <span>Giriş Yap</span>
                 </button>

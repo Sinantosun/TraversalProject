@@ -2,16 +2,13 @@
 function reload() {
     document.location.reload();
 }
-
-
 function ShowMessage(title, icon, content) {
     Swal.fire({
         title: title,
-        text: content,
+        html: content,
         icon: icon
     });
 }
-
 $(function () {
     var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
 
@@ -30,19 +27,23 @@ $(function () {
                     url: "/Members/Dashboard/ChangeTwoFactorEnabledToTrue/" + pwd,
                     data: { 'pwd': pwd },
                     success: function (data) {
-                        if (data == "01") {
+                        if (data.err = "None") {
                             document.querySelector(".pwd").value = "";
-                            ShowMessage("Başarılı", "success", "İki Adımlı Doğrulama Açıldı");
-                            setTimeout(reload, 1350);
+                            ShowMessage(data.title, data.icon, data.descr);
                         }
-                        else if (data == "02") {
+                        else {
 
                             checkbox.checked = false;
                             document.querySelector(".pwd").value = "";
+                            ShowMessage(data.title, data.icon, data.descr);
 
-                            ShowMessage("Hata", "info", "Lütfen Şifrenizi Kontrol Edin.");
+                            if (data.isReolad) {
+                                setTimeout(reload, 1350);
+                            }
+
 
                         }
+                        console.log(data);
                     }
                 });
 
@@ -61,15 +62,23 @@ $(function () {
                     data: { 'pwd': pwd },
                     success: function (data) {
 
-                        if (data == "01") {
+                        if (data.err = "None") {
                             document.querySelector(".pwd").value = "";
-                            ShowMessage("Başarılı", "success", "İki Adımlı Doğrulama Kapatıldı.");
-                            setTimeout(reload, 1350);
+                            ShowMessage(data.title, data.icon, data.descr);
+
                         }
-                        else if (data == "02") {
-                            checkbox.checked = true;
+                        else {
+
+                            checkbox.checked = false;
+
                             document.querySelector(".pwd").value = "";
-                            ShowMessage("Hata", "info", "Lütfen Şifrenizi Kontrol Edin.");
+                            ShowMessage(data.title, data.icon, data.descr);
+
+                            if (data.isReolad) {
+                                setTimeout(reload, 1350);
+                            }
+
+
                         }
 
                     }
