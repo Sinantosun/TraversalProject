@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TraversalProject.Areas.Members.Controllers
 {
     [Area("Members")]
-    [AllowAnonymous]
     public class CommentController : Controller
     {
         public IActionResult Index()

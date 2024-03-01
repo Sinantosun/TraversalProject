@@ -13,12 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/colorlib-regform-26/fonts/linearicons/style.css">
     <link rel="stylesheet" href="/colorlib-regform-26/css/style.css">
-    @if (TempData["result"] != null)
-    {
-        <script>
-            console.log('test');
-        </script>
-    }
 </head>
 <body>
     <div class="wrapper">
@@ -27,7 +21,7 @@
                 <h3>Giriş Yap</h3>
                 <div class="form-holder">
                     <span class="lnr lnr-user"></span>
-                    <input type="text"  class="form-control" asp-for="UserName" placeholder="Kullanıcı Adınız">
+                    <input type="text" class="form-control" asp-for="UserName" placeholder="Kullanıcı Adınız">
                 </div>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
@@ -35,13 +29,11 @@
                 </div>
                 <br />
                 <div class="text-danger" style="text-align:center; color:red; font-weight:bold;" asp-validation-summary="All">
-
                 </div><br />
                 <span><a href="/Login/SignUp">Henüz Üye Değilim</a></span>
                 <button>
                     <span>Giriş Yap</span>
                 </button>
-              
             </form>
             <img src="/colorlib-regform-26/images/image-2.png" alt="" class="image-2">
         </div>
@@ -51,6 +43,6 @@
     <script src="/colorlib-regform-26/js/main.js"></script>
 
 
-  
+
 </body>
 </html>

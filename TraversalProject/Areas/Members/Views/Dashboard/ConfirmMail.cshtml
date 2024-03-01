@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="alert alert-success" role="alert">
+    <h3>Mail Onaylama İşlemi Başarılı. 2 saniye içerisinde anasayfaya yönlendirileceksiniz.</h3>
+</div>
+
+
+<script>
+    $(function () {
+        function RetrunPage() {
+            window.location.href = 'https://localhost:7255/Main/Index';
+        }
+
+        setTimeout(RetrunPage, 2000);
+    });
+</script>
+
