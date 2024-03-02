@@ -11,11 +11,10 @@ function ShowMessage(title, icon, content) {
 }
 $(function () {
     var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    var checkbox1 = document.getElementById('flexSwitchCheckDefault');
 
-    var checkbox = document.getElementById('flexSwitchCheckDefault');
-
-    checkbox.addEventListener('click', function () {
-        if (checkbox.checked) {
+    checkbox1.addEventListener('click', async function () {
+        if (checkbox1.checked) {
             document.querySelector(".modal-title").innerHTML = "İki Adımlı Doğrulama Aktifleştir";
             modal.show();
 
@@ -26,24 +25,27 @@ $(function () {
                     type: "post",
                     url: "/Members/Dashboard/ChangeTwoFactorEnabledToTrue/" + pwd,
                     data: { 'pwd': pwd },
-                    success: function (data) {
-                        if (data.err = "None") {
-                            document.querySelector(".pwd").value = "";
-                            ShowMessage(data.title, data.icon, data.descr);
-                        }
-                        else {
-
-                            checkbox.checked = false;
+                    success: async function (data) {
+                        if (data.err == "None") {
                             document.querySelector(".pwd").value = "";
                             ShowMessage(data.title, data.icon, data.descr);
 
                             if (data.isReolad) {
                                 setTimeout(reload, 1350);
                             }
+                        }
+                        else {
+                     
+                            checkbox1.checked = false;
+                            document.querySelector(".pwd").value = "";
+                            ShowMessage(data.title, data.icon, data.descr);
 
-
+                            if (data.isReolad) {
+                                setTimeout(reload, 1350);
+                            }
                         }
                         console.log(data);
+
                     }
                 });
 
@@ -52,25 +54,17 @@ $(function () {
         else {
             document.querySelector(".modal-title").innerHTML = "İki Adımlı Doğrulama Kapatma";
             modal.show();
-
-            $(".modelbtnsubmit").click(function () {
+            console.log("ChangeTwoFactorEnabledToTrue else");
+            $(".modelbtnsubmit").click(async function () {
 
                 var pwd = document.querySelector(".pwd").value;
                 $.ajax({
                     type: "post",
                     url: "/Members/Dashboard/ChangeTwoFactorEnabledToFalse/" + pwd,
                     data: { 'pwd': pwd },
-                    success: function (data) {
+                    success: async function (data) {
 
-                        if (data.err = "None") {
-                            document.querySelector(".pwd").value = "";
-                            ShowMessage(data.title, data.icon, data.descr);
-
-                        }
-                        else {
-
-                            checkbox.checked = false;
-
+                        if (data.err == "None") {
                             document.querySelector(".pwd").value = "";
                             ShowMessage(data.title, data.icon, data.descr);
 
@@ -78,7 +72,16 @@ $(function () {
                                 setTimeout(reload, 1350);
                             }
 
+                        }
+                        else {
 
+                            checkbox1.checked = false;
+                            document.querySelector(".pwd").value = "";
+                            ShowMessage(data.title, data.icon, data.descr);
+
+                            if (data.isReolad) {
+                                setTimeout(reload, 1350);
+                            }
                         }
 
                     }

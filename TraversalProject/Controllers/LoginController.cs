@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NuGet.Common;
+using System.Web;
 
 namespace TraversalProject.Controllers
 {
@@ -48,7 +50,7 @@ namespace TraversalProject.Controllers
                         UserName = createUserDto.UserName,
                         Gender = "test",
                         ImageUrl = "test",
-                        ChangePasswordEveryThreeMonthsIsActive = true,
+                        ChangePasswordEveryThreeMonthsIsActive = false,
                         LastChangePasswordDate = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
                         ThreeMonthsLaterPasswordDate = Convert.ToDateTime(DateTime.Now.AddDays(90).ToShortDateString()),
                     };
@@ -102,18 +104,24 @@ namespace TraversalProject.Controllers
                 DateTime UserLastChangePasswordDate = Convert.ToDateTime(user.ThreeMonthsLaterPasswordDate);
                 DateTime DateNow = Convert.ToDateTime(DateTime.Now.ToShortDateString());
                 TimeSpan Fark = UserLastChangePasswordDate - DateNow;
-                if (user.ChangePasswordEveryThreeMonthsIsActive == true)
+                if (user.ChangePasswordEveryThreeMonthsIsActive == true && Fark.TotalDays <= 0)
                 {
                     if (userCheckPWD)
                     {
                         status = false;
                         ModelState.AddModelError("", "Hesabınızın Şifre Süresi Dolmuştur. Lütfen Mail Adresinize Gönderilen Şifre Yenileme Mailini Kontrol Ediniz.");
+                        var generateResetToken = await _usermanger.GeneratePasswordResetTokenAsync(user);
+                        ResultDto a = _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifrenizin Süresi (90 Gün) Dolmuştur Şifrenizi Aşağıdaki Linkden Yeniliyebilirsiniz. <br><br> Eğer bu özelliği kapatmak isterseniz (önerilmez)  Hesap Aylarınızdan her 3 ayda bir şifre yenileme özelliğini kapatarak işlemleri gerçekleşirebilirsiniz. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = user.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", user.Email);
                     }
                     else
                     {
                         status = false;
                         ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
                     }
+                }
+                else
+                {
+                    status = true;
                 }
                 if (status)
                 {
@@ -183,9 +191,42 @@ namespace TraversalProject.Controllers
         }
 
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> ResetPassword()
+        [HttpGet("[action]/{userId}/{token}")]
+        public async Task<IActionResult> ResetPassword(string userId, string token)
         {
+            return View();
+        }
+
+        [HttpPost("[action]/{userId}/{token}")]
+        public async Task<IActionResult> ResetPassword(string userId, string token, string pwd, string cnfrmpwd)
+        {
+            if (pwd == cnfrmpwd)
+            {
+                AppUser user = await _usermanger.FindByIdAsync(userId);
+                IdentityResult identityResult = await _usermanger.ResetPasswordAsync(user, HttpUtility.UrlDecode(token), pwd);
+                if (identityResult.Succeeded)
+                {
+                    user.LastChangePasswordDate = Convert.ToDateTime(DateTime.Now.ToLongDateString());
+                    user.ThreeMonthsLaterPasswordDate = Convert.ToDateTime(DateTime.Now.AddDays(90).ToShortDateString());
+                    var x = await _usermanger.UpdateAsync(user);
+                    if (x.Succeeded)
+                    {
+                        _mailService.SendMail2("Şifre Başarıyla Sıfırlandı", "Merhaba, <h1>" + user.Name + "</h1> birkaç dakika önce şifreniz sıfırlandı bu işlem size ait değilse lütfen iletişime geçiniz. <br> Admin", user.Email);
+                        return RedirectToAction("SignIn", "Login");
+                    }
+                    ViewBag.Err = "Bir Hata Oluştu Şifre Sıfırlanamadı";
+                    return View();
+                }
+                else
+                {
+                    foreach (var item in identityResult.Errors)
+                    {
+
+                        ViewBag.Err = item.Description;
+                    }
+                }
+            }
+
             return View();
         }
     }

@@ -25,11 +25,19 @@
                     {
                         <i class="fa fa-warning text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Telefon Numarası Onaylanmadı" aria-hidden="true"></i>
                     }
+                    else
+                    {
+                        <i class="fa fa-check text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Doğrulandı" aria-hidden="true"></i>
+                    }
                 </li>
                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mail:</strong> &nbsp; @ViewBag.MailAdress
                     @if (ViewBag.EmailConfirm == false)
                     {
                         <i class="fa fa-warning text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mail Adresi Onaylanmadı" aria-hidden="true"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-check text-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Doğrulandı" aria-hidden="true"></i>
                     }
                 
                 </li>
