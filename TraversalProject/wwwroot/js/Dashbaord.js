@@ -88,4 +88,46 @@ $(function () {
         }
     });
 
+
+    var checkbox = document.getElementById('flexSwitchCheckDefault1');
+
+    checkbox.addEventListener('click', function () {
+        if (!checkbox.checked) {
+            $.ajax({
+                type: "post",
+                url: "/Members/Dashboard/ChangePasswordEveryThreeMonthSetFalse/",
+                success: function (data) {
+                    if (data.err = "None") {
+                        ShowMessage(data.title, data.icon, data.descr);
+                    }
+                    else {
+
+                        ShowMessage(data.title, data.icon, data.descr);
+                    }
+
+                }
+            });
+        }
+        else {
+
+            $.ajax({
+                type: "post",
+                url: "/Members/Dashboard/ChangePasswordEveryThreeMonthSetActive/",
+                success: function (data) {
+
+                    if (data.err = "None") {
+                        ShowMessage(data.title, data.icon, data.descr);
+
+                    }
+                    else {
+
+                        ShowMessage(data.title, data.icon, data.descr);
+                    }
+
+                }
+            });
+
+
+        }
+    });
 })

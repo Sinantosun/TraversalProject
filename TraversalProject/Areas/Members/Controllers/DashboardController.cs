@@ -160,8 +160,65 @@ namespace TraversalProject.Areas.Members.Controllers
             }
         }
 
+        public async Task<JsonResult> ChangePasswordEveryThreeMonthSetActive()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            user.ChangePasswordEveryThreeMonthsIsActive = true;
+            var IdentiyResult = await _userManager.UpdateAsync(user);
+            if (IdentiyResult.Succeeded)
+            {
+                var result = new
+                {
+                    title = "Başarılı",
+                    icon = "info",
+                    err = "None",
+                    Descr = "3 Ayda Bir Şifreniz Güncelleme İşlemi Açıldı.",
+                };
+                return Json(result);
+            }
+            else
+            {
+                var result = new
+                {
+                    title = "Hata",
+                    icon = "error",
+                    err = "True",
+                    Descr = "Bir Hatayla Karşılaşıldı.",
+                };
+                return Json(result);
+            }
+        
 
+        }
+        public async Task<JsonResult> ChangePasswordEveryThreeMonthSetFalse()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            user.ChangePasswordEveryThreeMonthsIsActive = false;
+            var IdentiyResult = await _userManager.UpdateAsync(user);
+            if (IdentiyResult.Succeeded)
+            {
+                var result = new
+                {
+                    title = "Hata",
+                    icon = "info",
+                    err = "True",
+                    Descr = "3 Ayda Bir Şifreniz Güncelleme İşlemi Kapatıldı.",
+                };
+                return Json(result);
+            }
+            else
+            {
+                var result = new
+                {
+                    title = "Hata",
+                    icon = "error",
+                    err = "True",
+                    Descr = "Bir Hatayla Karşılaşıldı.",
+                };
+                return Json(result);
+            }
+          
 
-
+        }
     }
 }

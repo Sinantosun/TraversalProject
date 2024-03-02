@@ -9,6 +9,11 @@ namespace EntityLayer.Concrete
         public string Surname { get; set; }
         public string Gender { get; set; }
         public List<Reservation> Reservations { get; set; }
+
+        public bool ChangePasswordEveryThreeMonthsIsActive { get; set; }
+
+        public DateTime? LastChangePasswordDate { get; set; }
+        public DateTime? ThreeMonthsLaterPasswordDate { get; set; }
     }
 }
 

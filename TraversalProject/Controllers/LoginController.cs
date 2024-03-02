@@ -48,6 +48,9 @@ namespace TraversalProject.Controllers
                         UserName = createUserDto.UserName,
                         Gender = "test",
                         ImageUrl = "test",
+                        ChangePasswordEveryThreeMonthsIsActive = true,
+                        LastChangePasswordDate = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
+                        ThreeMonthsLaterPasswordDate = Convert.ToDateTime(DateTime.Now.AddDays(90).ToShortDateString()),
                     };
                     var result = await _usermanger.CreateAsync(newUser, createUserDto.Password);
                     if (result.Succeeded)
@@ -88,40 +91,64 @@ namespace TraversalProject.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginDto loginDto)
         {
+            bool status = false;
             LoginValidator validationRules = new LoginValidator();
             ValidationResult valide = validationRules.Validate(loginDto);
             if (valide.IsValid)
             {
                 await _signInManager.SignOutAsync();
                 var user = await _usermanger.FindByNameAsync(loginDto.UserName);
-                var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, false, true);
-                if (result.RequiresTwoFactor)
+                var userCheckPWD = await _usermanger.CheckPasswordAsync(user, loginDto.Password);
+                DateTime UserLastChangePasswordDate = Convert.ToDateTime(user.ThreeMonthsLaterPasswordDate);
+                DateTime DateNow = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                TimeSpan Fark = UserLastChangePasswordDate - DateNow;
+                if (user.ChangePasswordEveryThreeMonthsIsActive == true)
                 {
-                    var genareteTwoFactorToken = await _usermanger.GenerateTwoFactorTokenAsync(user, "Email");
-                    ResultDto MailResult2 = _mailService.SendMail2("İki Adımlı Doğrulama Kodu", "Doğrulama Kodunuz: " + genareteTwoFactorToken, user.Email);
-
-                    if (MailResult2.status == true)
+                    if (userCheckPWD)
                     {
-                        return RedirectToAction("TwoFactorAuth", "Login");
+                        status = false;
+                        ModelState.AddModelError("", "Hesabınızın Şifre Süresi Dolmuştur. Lütfen Mail Adresinize Gönderilen Şifre Yenileme Mailini Kontrol Ediniz.");
                     }
                     else
                     {
-                        ModelState.AddModelError("", MailResult2.description);
-                        return View();
+                        status = false;
+                        ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
                     }
                 }
-                else if (result.Succeeded)
+                if (status)
                 {
-                    if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
-                        return RedirectToAction("Index", "Profile", new { area = "Members" });
-                    return Redirect(TempData["returnUrl"].ToString());
-                }
-                else
-                {
+                    var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, false, true);
+                    if (result.RequiresTwoFactor)
+                    {
+                        var genareteTwoFactorToken = await _usermanger.GenerateTwoFactorTokenAsync(user, "Email");
+                        ResultDto MailResult2 = _mailService.SendMail2("İki Adımlı Doğrulama Kodu", "Doğrulama Kodunuz: " + genareteTwoFactorToken, user.Email);
 
-                    ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
-                    return View();
+                        if (MailResult2.status == true)
+                        {
+                            return RedirectToAction("TwoFactorAuth", "Login");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", MailResult2.description);
+                            return View();
+                        }
+                    }
+                    else if (result.Succeeded)
+                    {
+                        if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
+                            return RedirectToAction("Index", "Profile", new { area = "Members" });
+                        return Redirect(TempData["returnUrl"].ToString());
+                    }
+                    else
+                    {
+
+                        ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
+                        return View();
+                    }
+
                 }
+                return View();
+
             }
             else
             {
@@ -152,7 +179,14 @@ namespace TraversalProject.Controllers
             {
                 ViewBag.Err = "Doğrulama Kodunuz Hatalı.";
             }
-            return RedirectToAction("TwoFactorAuth","Login");
+            return RedirectToAction("TwoFactorAuth", "Login");
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ResetPassword()
+        {
+            return View();
         }
     }
 }
