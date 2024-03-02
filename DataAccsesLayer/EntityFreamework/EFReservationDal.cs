@@ -15,7 +15,7 @@ namespace DataAccsesLayer.EntityFreamework
         public List<Reservation> GetListWithReservationByAccepted(int id)
         {
             using var context = new Context();
-            return context.Reservations.Include(x => x.Destination).Where(x => x.Status == "Onaylandı" && x.AppUserId == id).ToList();
+            return context.Reservations.Include(x => x.Destination).Include(y => y.AppUser).Where(x => x.Status == "Onaylandı" && x.AppUserId == id).ToList();
         }
 
         public List<Reservation> GetListWithReservationByPrevious(int id)

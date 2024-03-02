@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
 using DtoLayer.DestinationDtos;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,5 +33,51 @@ namespace ProjectAPI.Controllers
             var value = mapper.Map<ResultByIdForDestinationDto>(_destinationService.TGetById(id));
             return Ok(value);
         }
+        [HttpPost]
+        public IActionResult CreateDestination(CreateDestinationDto createDestinationDto)
+        {
+            try
+            {
+                createDestinationDto.Status = true;
+                var mapValue = mapper.Map<Destination>(createDestinationDto);
+                _destinationService.TInsert(mapValue);
+                return Ok();
+            }
+            catch (Exception x)
+            {
+                return BadRequest(x.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateDestination(UpdateDestinationDto createDestinationDto)
+        {
+            try
+            {
+                createDestinationDto.Status = true;
+                var mapValue = mapper.Map<Destination>(createDestinationDto);
+                _destinationService.TUpdate(mapValue);
+                return Ok();
+            }
+            catch (Exception x)
+            {
+                return BadRequest(x.Message);
+            }
+        }
+        [HttpDelete]
+        public IActionResult DeleteDestination(int id)
+        {
+            try
+            {
+                 var find = _destinationService.TGetById(id);
+                _destinationService.TDelete(find);
+                return Ok();
+            }
+            catch (Exception x)
+            {
+                return BadRequest(x.Message);
+            }
+        }
+
     }
 }

@@ -23,6 +23,12 @@ namespace ProjectAPI.Controllers
             var value = _commentService.TGetDestinationByID(id);
             return Ok(value);
         }
+        [HttpGet]
+        public IActionResult GetCommentList()
+        {
+            var value = _commentService.TgetAllCommentWithDestination();
+            return Ok(value);
+        }
 
         [HttpPost]
         public IActionResult AddComment(CreateCommandDto createCommandDto)
@@ -38,6 +44,14 @@ namespace ProjectAPI.Controllers
             };
             _commentService.TInsert(comment);
             return Ok("Eklendi..");
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteComment(int id)
+        {
+            var find = _commentService.TGetById(id);
+            _commentService.TDelete(find);
+            return Ok();
         }
     }
 }

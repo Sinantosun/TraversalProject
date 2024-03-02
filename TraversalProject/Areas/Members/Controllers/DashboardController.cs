@@ -55,6 +55,10 @@ namespace TraversalProject.Areas.Members.Controllers
 
         public async Task<JsonResult> ChangeTwoFactorEnabledToTrue(string pwd)
         {
+
+            int c = 0;
+            c += c += c += 1;
+
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var getValids = await _userManager.GetValidTwoFactorProvidersAsync(user);
             if (getValids.Contains("Email") || getValids.Contains("Phone"))
