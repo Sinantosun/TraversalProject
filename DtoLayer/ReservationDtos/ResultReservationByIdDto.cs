@@ -6,6 +6,7 @@ namespace DtoLayer.ReservationDtos
     {
         public int ReservationID { get; set; }
         public int AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
         public Destination Destination { get; set; }
         public int DestinationID { get; set; }
         public string PersonCount { get; set; }

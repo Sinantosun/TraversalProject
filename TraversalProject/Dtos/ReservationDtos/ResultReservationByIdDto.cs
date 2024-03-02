@@ -5,6 +5,7 @@ namespace TraversalProject.Dtos.ReservationDtos
     public class ResultReservationByIdDto
     {
         public int ReservationID { get; set; }
+        public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }
         public Destination Destination { get; set; }
         public int DestinationID { get; set; }

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataStatusDtos\" />
+  </ItemGroup>
+
 </Project>

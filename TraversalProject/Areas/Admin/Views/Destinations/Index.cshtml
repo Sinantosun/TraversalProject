@@ -1,0 +1,33 @@
+﻿@model List<ResultDestinationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Tur Rotaları</h1>
+<a href="/Admin/Destinations/AddDestination" class="btn btn-outline-dark">Yeni Rota Oluştur</a>
+<br /><br />
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Şehir</th>
+        <th>Fiyat</th>
+        <th>Kapasite</th>
+        <th style="text-align:center" colspan="4">İşlem</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.DestinationID</td>
+            <td>@item.City</td>
+            <td>@Convert.ToDecimal(item.Price).ToString("C2")</td>
+            <td>@item.Capacity Kişi</td>
+            <td><a class="btn btn-outline-warning" href="/Destination/DestinationDetails/@item.DestinationID">Siteye Git</a></td>
+            <td><a class="btn btn-outline-danger" href="/Admin/Destinations/DeleteDestination/@item.DestinationID">Sil</a></td>
+            <td><a class="btn btn-outline-success" href="/Admin/Destinations/UpdateDestination/@item.DestinationID">Güncelle</a></td>
+            <td><a class="btn btn-outline-primary" href="/Admin/Destinations/DeleteDestination/@item.DestinationID">Detaylar</a></td>
+        </tr>
+    }
+
+</table>

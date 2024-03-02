@@ -43,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -53,6 +53,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+});
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
