@@ -37,6 +37,7 @@ namespace TraversalProject.Areas.Members.Controllers
                 ViewBag.PhoneConfirm = user.PhoneNumberConfirmed;
                 ViewBag.EmailConfirm = user.EmailConfirmed;
                 ViewBag.twoFactorConfirm = user.TwoFactorEnabled;
+                ViewBag.ChangePasswordIsActive = user.ChangePasswordEveryThreeMonthsIsActive;
 
 
             }
@@ -61,13 +62,14 @@ namespace TraversalProject.Areas.Members.Controllers
                 var control = await _userManager.CheckPasswordAsync(user, pwd);
                 if (control)
                 {
+
                     user.TwoFactorEnabled = true;
                     await _userManager.UpdateAsync(user);
                     await _signInManager.RefreshSignInAsync(user);
 
                     var result = new
                     {
-                        title="Başarılı",
+                        title = "Başarılı",
                         err = "None",
                         icon = "success",
                         Descr = "İki Aşamalı Doğrulama Başarıyla Açıldı.",
@@ -84,7 +86,7 @@ namespace TraversalProject.Areas.Members.Controllers
                         icon = "info",
                         err = "True",
                         Descr = "Lütfen Şifrenizi Kontrol Edin.",
-                        isReolad = true,
+                        isReolad = false,
                     };
                     return Json(result);
                 }
@@ -126,7 +128,7 @@ namespace TraversalProject.Areas.Members.Controllers
                     icon = "success",
                     err = "True",
                     Descr = "İki Aşamalı Doğrulama Kapatıldı.",
-                    isReolad = true,
+                    isReolad = false,
                 };
                 return Json(result);
             }
@@ -138,7 +140,7 @@ namespace TraversalProject.Areas.Members.Controllers
                     icon = "info",
                     err = "True",
                     Descr = "Lütfen Şifrenizi Kontrol Edin.",
-                    isReolad = true,
+                    isReolad = false,
                 };
                 return Json(result);
             }
@@ -187,7 +189,7 @@ namespace TraversalProject.Areas.Members.Controllers
                 };
                 return Json(result);
             }
-        
+
 
         }
         public async Task<JsonResult> ChangePasswordEveryThreeMonthSetFalse()
@@ -217,7 +219,7 @@ namespace TraversalProject.Areas.Members.Controllers
                 };
                 return Json(result);
             }
-          
+
 
         }
     }
