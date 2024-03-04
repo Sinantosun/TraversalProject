@@ -4,7 +4,6 @@ using FluentValidation;
 
 namespace BussinessLayer.ValidationRules.GuideValidator
 {
-    internal class CreateGuideValidator: AbstractValidator<CreateGui>
-    {
+    internal class CreateGuideValidator    {
     }
 }
