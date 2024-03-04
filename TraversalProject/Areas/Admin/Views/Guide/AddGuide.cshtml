@@ -9,7 +9,7 @@
 @if (ViewBag.Result != null)
 {
     <div class="alert alert-@ViewBag.Icon alert-dismissible" role="alert">
-        @ViewBag.Result
+        @Html.Raw(@ViewBag.Result)
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
@@ -20,6 +20,7 @@
     <div class="form-group">
         @Html.Label("Ad Soyad")
         <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
         @Html.Label("Görsel")

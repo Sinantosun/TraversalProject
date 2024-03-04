@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
+using BussinessLayer.ValidationRules.GuideValidator;
+using DtoLayer.GenericNotificationDtos;
 using DtoLayer.GuideDtos;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +32,21 @@ namespace ProjectAPI.Controllers
         [HttpPost]
         public IActionResult CreateGuide(CreateGuideDto createGuideDto)
         {
-            var mappedValues = _mapper.Map<Guide>(createGuideDto);
-            _guideService.TInsert(mappedValues);
-            return Ok();
+            CreateGuideValidator validationRules = new CreateGuideValidator();
+            ValidationResult validationResult = validationRules.Validate(createGuideDto);
+            if (validationResult.IsValid)
+            {
+                var mappedValues = _mapper.Map<Guide>(createGuideDto);
+                _guideService.TInsert(mappedValues);
+                return Ok();
+            }
+            else
+            {
+                string errorMessage = string.Join("<br>", validationResult.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(errorMessage);
+            }
+
+
         }
 
         [HttpPut]
