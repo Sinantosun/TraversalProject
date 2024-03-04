@@ -9,6 +9,8 @@ namespace ProjectAPI.Mapping.Guides
         public GuideMapper()
         {
             CreateMap<Guide, ResultGuideDto>().ReverseMap();
+            CreateMap<Guide, CreateGuideDto>().ReverseMap();
+            CreateMap<Guide, UpdateGuideDto>().ReverseMap();
         }
     }
 }

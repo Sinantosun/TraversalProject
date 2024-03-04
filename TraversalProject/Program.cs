@@ -8,6 +8,7 @@ using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Serilog;
 using TraversalProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddScoped<IDestinationService, DestinationManager>();
 builder.Services.AddScoped<IDestinationDal, EFDestinationDal>();
 
 builder.Services.AddScoped<IMailService, MailManger>();
-
+builder.Services.AddLogging(x => { x.ClearProviders(); x.SetMinimumLevel(LogLevel.Debug); x.AddDebug(); });
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser, AppRole>(opts =>
@@ -39,7 +40,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+var loggerFactory = app.Services.GetService<ILoggerFactory>();
 
+var path = Directory.GetCurrentDirectory();
+loggerFactory.AddFile($"{path}\\Logs\\Log1.txt");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

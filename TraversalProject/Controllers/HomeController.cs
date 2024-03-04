@@ -16,6 +16,7 @@ namespace TraversalProject.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Merhaba, Index Sayfası Açıldı.");
             return View();
         }
 
