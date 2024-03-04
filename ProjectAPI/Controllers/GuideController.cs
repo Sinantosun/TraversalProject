@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
 using DtoLayer.GuideDtos;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,29 @@ namespace ProjectAPI.Controllers
         public IActionResult GetGuideList()
         {
             var mappedValues = _mapper.Map<List<ResultGuideDto>>(_guideService.TGetList());
+            return Ok(mappedValues);
+        }
+
+        [HttpPost]
+        public IActionResult CreateGuide(CreateGuideDto createGuideDto)
+        {
+            var mappedValues = _mapper.Map<Guide>(createGuideDto);
+            _guideService.TInsert(mappedValues);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult EditGuide(UpdateGuideDto updateGuideDto)
+        {
+            var mappedValues = _mapper.Map<Guide>(updateGuideDto);
+            _guideService.TUpdate(mappedValues);
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetGuideByID(int id)
+        {
+            var mappedValues = _guideService.TGetById(id);
             return Ok(mappedValues);
         }
     }
