@@ -1,8 +1,7 @@
-﻿
-using EntityLayer.Concrete;
+﻿using EntityLayer.Concrete;
 using FluentValidation;
 
-namespace BussinessLayer.ValidationRules
+namespace BussinessLayer.ValidationRules.AboutValidatior
 {
     public class AboutValidatior : AbstractValidator<About>
     {

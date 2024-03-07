@@ -1,5 +1,6 @@
 ﻿using BussinessLayer.Abstract;
 using BussinessLayer.ValidationRules;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DtoLayer.LoginDtos;
 using DtoLayer.RegisterDtos;
 using EntityLayer.Concrete;
@@ -111,7 +112,7 @@ namespace TraversalProject.Controllers
                         status = false;
                         ModelState.AddModelError("", "Hesabınızın Şifre Süresi Dolmuştur. Lütfen Mail Adresinize Gönderilen Şifre Yenileme Mailini Kontrol Ediniz.");
                         var generateResetToken = await _usermanger.GeneratePasswordResetTokenAsync(user);
-                        ResultDto a = _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifrenizin Süresi (90 Gün) Dolmuştur Şifrenizi Aşağıdaki Linkden Yeniliyebilirsiniz. <br><br> Eğer bu özelliği kapatmak isterseniz (önerilmez)  Hesap Aylarınızdan her 3 ayda bir şifre yenileme özelliğini kapatarak işlemleri gerçekleşirebilirsiniz. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = user.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", user.Email);
+                        _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifrenizin Süresi (90 Gün) Dolmuştur Şifrenizi Aşağıdaki Linkden Yeniliyebilirsiniz. <br><br> Eğer bu özelliği kapatmak isterseniz (önerilmez)  Hesap Aylarınızdan her 3 ayda bir şifre yenileme özelliğini kapatarak işlemleri gerçekleşirebilirsiniz. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = user.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", user.Email);
                     }
                     else
                     {
@@ -190,7 +191,35 @@ namespace TraversalProject.Controllers
             return RedirectToAction("TwoFactorAuth", "Login");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ForgotPassword()
+        {
 
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string mail)
+        {
+            var getUser = await _usermanger.FindByEmailAsync(mail);
+            if (getUser != null)
+            {
+                var generateResetToken = await _usermanger.GeneratePasswordResetTokenAsync(getUser);
+                ResultDto resultDto = _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifre Sıfırlama Talebini Aldık, Butona Tıklayarak Şifreni Yenileyebilirsin. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = getUser.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", mail);
+
+                if (resultDto.status)
+                {
+                    ViewBag.Err = "Mail Sıfırlama İsteği Gönderildi.";
+                }
+
+
+            }
+            else
+            {
+                ViewBag.Err = "Mail Bulunamadı.";
+            }
+
+            return View();
+        }
         [HttpGet("[action]/{userId}/{token}")]
         public async Task<IActionResult> ResetPassword(string userId, string token)
         {
@@ -211,7 +240,7 @@ namespace TraversalProject.Controllers
                     var x = await _usermanger.UpdateAsync(user);
                     if (x.Succeeded)
                     {
-                        _mailService.SendMail2("Şifre Başarıyla Sıfırlandı", "Merhaba, <h1>" + user.Name + "</h1> birkaç dakika önce şifreniz sıfırlandı bu işlem size ait değilse lütfen iletişime geçiniz. <br> Admin", user.Email);
+                        _mailService.SendMail2("Şifre Başarıyla Sıfırlandı", "Merhaba, <h3 style=text-transform:capitalize>" + user.Name + " " + user.Surname + "</h3> birkaç dakika önce şifreniz sıfırlandı bu işlem size ait değilse lütfen iletişime geçiniz. <br> Admin", user.Email);
                         return RedirectToAction("SignIn", "Login");
                     }
                     ViewBag.Err = "Bir Hata Oluştu Şifre Sıfırlanamadı";

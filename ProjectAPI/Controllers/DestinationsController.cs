@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
+using BussinessLayer.ValidationRules.DestinationValidatior;
 using DtoLayer.DestinationDtos;
+using DtoLayer.GenericNotificationDtos;
 using EntityLayer.Concrete;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,16 +40,27 @@ namespace ProjectAPI.Controllers
         [HttpPost]
         public IActionResult CreateDestination(CreateDestinationDto createDestinationDto)
         {
-            try
+
+            DestinationValidator validationRules = new DestinationValidator();
+            ValidationResult validationResult = validationRules.Validate(createDestinationDto);
+            if (validationResult.IsValid)
             {
                 createDestinationDto.Status = true;
                 var mapValue = mapper.Map<Destination>(createDestinationDto);
                 _destinationService.TInsert(mapValue);
                 return Ok();
             }
-            catch (Exception x)
+            else
             {
-                return BadRequest(x.Message);
+                List<ResultNotificationDto> ErrorList = new List<ResultNotificationDto>();
+                foreach (var item in validationResult.Errors)
+                {
+                    ResultNotificationDto resultNotificationDto = new ResultNotificationDto();
+                    resultNotificationDto.Description = item.ErrorMessage;
+                    resultNotificationDto.PropertyName = item.PropertyName;
+                    ErrorList.Add(resultNotificationDto);
+                }
+                return BadRequest(ErrorList);
             }
         }
 
@@ -54,6 +69,8 @@ namespace ProjectAPI.Controllers
         {
             try
             {
+             
+
                 createDestinationDto.Status = true;
                 var mapValue = mapper.Map<Destination>(createDestinationDto);
                 _destinationService.TUpdate(mapValue);
@@ -69,7 +86,7 @@ namespace ProjectAPI.Controllers
         {
             try
             {
-                 var find = _destinationService.TGetById(id);
+                var find = _destinationService.TGetById(id);
                 _destinationService.TDelete(find);
                 return Ok();
             }
