@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using TraversalProject.Dtos.CommentDtos;
 using TraversalProject.Dtos.DestinationDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
@@ -46,12 +47,18 @@ namespace TraversalProject.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("http://localhost:5075/api/Destinations", strContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                ViewBag.StatusForAddingDestination = "Başarıyla Eklendi";
+                
                 return RedirectToAction("Index", "Destinations", new { area = "Admin" });
             }
             else
             {
-                ViewBag.StatusForAddingDestination = "Eklenmedi Hat Oluştu!";
+
+                var content = await responseMessage.Content.ReadAsStringAsync();
+                var contentResult = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(content);
+                foreach (var item in contentResult)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.Description);
+                }
             }
             return View();
         }

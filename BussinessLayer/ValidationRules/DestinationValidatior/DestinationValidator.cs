@@ -1,10 +1,9 @@
-﻿
-
-using DtoLayer.DestinationDtos;
+﻿using DtoLayer.DestinationDtos;
 using FluentValidation;
+using FluentValidation.Validators;
 using System.Text.RegularExpressions;
 
-namespace BussinessLayer.ValidationRules
+namespace BussinessLayer.ValidationRules.DestinationValidatior
 {
     public class DestinationValidator : AbstractValidator<CreateDestinationDto>
     {
@@ -20,7 +19,6 @@ namespace BussinessLayer.ValidationRules
             RuleFor(x => x.Image).NotEmpty().WithMessage("Boş Geçilemez.");
             RuleFor(x => x.Image2).NotEmpty().WithMessage("Boş Geçilemez.");
             RuleFor(x => x.Price).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Price).Must(price => double.TryParse(price.ToString(), out _))  .WithMessage("Price must be a valid double number.");
 
 
         }

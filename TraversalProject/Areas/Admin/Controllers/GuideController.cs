@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
+using TraversalProject.Dtos.CommentDtos;
 using TraversalProject.Dtos.GuideDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
@@ -49,7 +50,7 @@ namespace TraversalProject.Areas.Admin.Controllers
             var data = JsonConvert.SerializeObject(createGuideDto);
             StringContent str = new StringContent(data, Encoding.UTF8, "application/json");
             var ResponesMesssage = await client.PostAsync("http://localhost:5075/api/Guide", str);
-            var read = await ResponesMesssage.Content.ReadAsStringAsync();
+           
             if (ResponesMesssage.IsSuccessStatusCode)
             {
                 ViewBag.Result = "Başarıyla Eklendi.";
@@ -57,10 +58,12 @@ namespace TraversalProject.Areas.Admin.Controllers
             }
             else
             {
-
-
-                ViewBag.Icon = "dark";
-                ViewBag.Result = "Hata <br>" + read;
+                var read = await ResponesMesssage.Content.ReadAsStringAsync();
+                var convertData = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(read);
+                foreach (var item in convertData)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.Description);
+                }
             }
             return View();
         }

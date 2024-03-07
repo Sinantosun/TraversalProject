@@ -3,6 +3,7 @@ using BussinessLayer.AbstractValidator;
 using BussinessLayer.ValidationRules.GuideValidator;
 using DtoLayer.GenericNotificationDtos;
 using DtoLayer.GuideDtos;
+using DtoLayer.TestimonailDtos;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -42,8 +43,17 @@ namespace ProjectAPI.Controllers
             }
             else
             {
-                string errorMessage = string.Join("<br>", validationResult.Errors.Select(e => e.ErrorMessage));
-                return BadRequest(errorMessage);
+                List<ResultNotificationDto> ErrorList = new List<ResultNotificationDto>();
+                foreach (var item in validationResult.Errors)
+                {
+                    ResultNotificationDto ErorrListDetails = new ResultNotificationDto();
+                    ErorrListDetails.PropertyName = item.PropertyName;
+                    ErorrListDetails.Description = item.ErrorMessage;
+                    ErrorList.Add(ErorrListDetails);
+                }
+
+
+                return BadRequest(ErrorList);
             }
 
 
