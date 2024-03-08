@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="EPPlus" Version="7.0.9" />
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="3.4.18" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.26" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.26" />
@@ -36,6 +37,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Members\Data\" />
     <Folder Include="Areas\Members\Models\" />
+    <Folder Include="wwwroot\PdfReports\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 using BussinessLayer.Abstract;
 using BussinessLayer.AbstractValidator;
 using BussinessLayer.Concrete;
+using BussinessLayer.Contianier;
 using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
 using DataAccsesLayer.EntityFreamework;
@@ -12,10 +13,9 @@ using Serilog;
 using TraversalProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IDestinationService, DestinationManager>();
-builder.Services.AddScoped<IDestinationDal, EFDestinationDal>();
 
-builder.Services.AddScoped<IMailService, MailManger>();
+builder.Services.ContainerDepencies();
+
 builder.Services.AddLogging(x => { x.ClearProviders(); x.SetMinimumLevel(LogLevel.Debug); x.AddDebug(); });
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
