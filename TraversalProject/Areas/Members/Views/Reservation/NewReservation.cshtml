@@ -13,7 +13,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               Rezervasyonunuz Başlangıçta Onay Bekliyor Olarak Alınacaktır. Rezervasyon Onaylanma Süreciyle İlgili Lütfen Güncel Rezervasyonlarım Menüsünden Rezervasyonunuzun Durumunu Takip Ediniz.
+                Rezervasyonunuz Başlangıçta Onay Bekliyor Olarak Alınacaktır. Rezervasyon Onaylanma Süreciyle İlgili Lütfen Güncel Rezervasyonlarım Menüsünden Rezervasyonunuzun Durumunu Takip Ediniz.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
@@ -31,7 +31,6 @@
 
             var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
             modal.show();
-            //localStorage.setItem('modalShown', true);
         }
 
         $(".NotShowAgain").click(function () {
@@ -44,22 +43,25 @@
 </script>
 
 
-
 <h1>Yeni Rezervayon Ekleme Sayfası</h1>
-
+<small>* İşaretli Alanları Eksiksiz Doldurmanız Gereklidir.</small>
 <form method="post">
-   @*  <div class="form-group">
-
-        @Html.Label("Lokasyon")
-        @Html.DropDownListFor(x => x.Destination, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
-    </div> *@
     <div class="form-group">
-        @Html.Label("Kişi Sayısı")
-        <input type="number" asp-for="PersonCount" class="form-control" />
+
+        @Html.Label("Lokasyon *")
+        @Html.DropDownListFor(x => x.DestinationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.Label("Tarih")
+        @Html.Label("Kişi Sayısı *")
+ 
+        <input type="number" asp-for="PersonCount" class="form-control" />
+        <span asp-validation-for="PersonCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @Html.Label("Tarih *")
+     
         <input type="date" asp-for="ReservastionDate" class="form-control" />
+        <span asp-validation-for="ReservastionDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         @Html.Label("Varsa Eklemek İstedikleriniz")

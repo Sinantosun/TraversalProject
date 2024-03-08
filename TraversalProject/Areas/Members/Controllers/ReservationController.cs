@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
+using TraversalProject.Dtos.CommentDtos;
 using TraversalProject.Dtos.ReservationDtos;
 
 namespace TraversalProject.Areas.Members.Controllers
 {
     [Area("Members")]
+    [Route("Members/Reservation")]
     public class ReservationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -24,7 +26,7 @@ namespace TraversalProject.Areas.Members.Controllers
             _destinationService = destinationService;
             _userManager = userManager;
         }
-
+        [Route("MyCurrentReservation")]
         public async Task<IActionResult> MyCurrentReservation()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -38,6 +40,7 @@ namespace TraversalProject.Areas.Members.Controllers
             }
             return View();
         }
+        [Route("MyOldReservation")]
         public async Task<IActionResult> MyOldReservation()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -51,6 +54,7 @@ namespace TraversalProject.Areas.Members.Controllers
             }
             return View();
         }
+        [Route("MyApprovalReservation")]
         public async Task<IActionResult> MyApprovalReservation()
         {
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -65,26 +69,49 @@ namespace TraversalProject.Areas.Members.Controllers
             return View();
         }
 
-        [Area("Members")]
+        void loadDropdown()
+        {
+            List<SelectListItem> value = (from x in _destinationService.TGetList() select new SelectListItem { Text = x.City, Value = x.DestinationID.ToString() }).ToList();
+
+            ViewBag.v = value;
+        }
+
+
+        [Route("NewReservation")]
         [HttpGet]
         public IActionResult NewReservation()
         {
-            List<SelectListItem> value = (from x in _destinationService.TGetList() select new SelectListItem { Text = x.City, Value = x.DestinationID.ToString() }).ToList();
-            ViewBag.v = value;
+            loadDropdown();
             return View();
         }
+        [Route("NewReservation")]
         [HttpPost]
         public async Task<IActionResult> NewReservation(CreateResarvationDto createResarvationDto)
         {
-            //
             createResarvationDto.Status = "Onay Bekliyor";
-            createResarvationDto.AppUserId = 7;
+            createResarvationDto.AppUserId = 15;
 
             var client = _httpClientFactory.CreateClient();
             var data = JsonConvert.SerializeObject(createResarvationDto);
             StringContent str = new StringContent(data, Encoding.UTF8, "application/json");
-            var x = await client.PostAsync("http://localhost:5075/api/Resarvation", str);
-            return View("MyCurrentReservation");
+            var responseMessage = await client.PostAsync("http://localhost:5075/api/Resarvation", str);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("MyApprovalReservation", "Reservation", new { area = "Members" });
+            }
+            else
+            {
+                var erorrListData = await responseMessage.Content.ReadAsStringAsync();
+                var erorrListResult = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(erorrListData);
+                foreach (var item in erorrListResult)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.Description);
+                }
+
+            }
+            loadDropdown();
+            return View();
+
 
 
 

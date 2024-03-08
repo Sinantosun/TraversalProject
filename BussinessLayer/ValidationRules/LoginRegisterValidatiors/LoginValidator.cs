@@ -1,8 +1,7 @@
-﻿
-using DtoLayer.LoginDtos;
+﻿using DtoLayer.LoginDtos;
 using FluentValidation;
 
-namespace BussinessLayer.ValidationRules
+namespace BussinessLayer.ValidationRules.LoginRegisterValidatiors
 {
     public class LoginValidator : AbstractValidator<LoginDto>
     {

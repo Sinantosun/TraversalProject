@@ -2,7 +2,7 @@
 using EntityLayer.Concrete;
 using FluentValidation;
 
-namespace BussinessLayer.ValidationRules
+namespace BussinessLayer.ValidationRules.LoginRegisterValidatiors
 {
     public class RegisterValidator : AbstractValidator<CreateUserDto>
     {
