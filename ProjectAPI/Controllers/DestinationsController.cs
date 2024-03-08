@@ -41,7 +41,7 @@ namespace ProjectAPI.Controllers
         public IActionResult CreateDestination(CreateDestinationDto createDestinationDto)
         {
 
-            DestinationValidator validationRules = new DestinationValidator();
+            DestinationValidators validationRules = new DestinationValidators();
             ValidationResult validationResult = validationRules.Validate(createDestinationDto);
             if (validationResult.IsValid)
             {

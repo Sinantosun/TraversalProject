@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace BussinessLayer.ValidationRules.AboutValidatior
 {
-    public class AboutValidatior : AbstractValidator<About>
+    public class AboutValidatiors : AbstractValidator<About>
     {
-        public AboutValidatior()
+        public AboutValidatiors()
         {
             RuleFor(x => x.Description).NotEmpty().WithMessage("Açıklama kısmını boş geçemezsiniz...!");
             RuleFor(x => x.Image1).NotEmpty().WithMessage("Lütfen görsel seçiniz...!");

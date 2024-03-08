@@ -4,20 +4,29 @@
     <p class="mb-4">
         İşaretli Alanları Doldurmanız Gereklidir. *
     </p>
+
+    @if (TempData["CommentResult"] != null)
+    {
+        string icon = TempData["icon"].ToString();
+        <div class="alert alert-@icon" role="alert">
+            @Html.Raw(TempData["CommentResult"])
+        </div>
+    }
+
     <form method="post" asp-action="AddComment" asp-controller="Comment">
 
         <div class="form-group">
-            <textarea name="CommentContent" class="form-control" placeholder="Yorumunuz *" required=""
+            <textarea name="CommentContent" class="form-control" required placeholder="Yorumunuz *"
                       spellcheck="false"></textarea>
         </div>
+
         <div class="input-grids row">
 
             <div class="form-group col-lg-12">
-                <input type="text" name="CommentUser" class="form-control" placeholder="Adınız Soyadınız *"
-                       required="">
+                <input type="text" name="CommentUser" required class="form-control" placeholder="Adınız Soyadınız *">
             </div>
             <div class="form-group col-lg-6">
-                <input type="hidden" name="DestinationID" value="@ViewBag.FilterId" class="form-control" placeholder="Destinasyon ID *" required="">
+                <input type="hidden" name="DestinationID" value="@ViewBag.FilterId" class="form-control" placeholder="Destinasyon ID *" >
             </div>
         </div>
 

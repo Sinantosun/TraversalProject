@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace BussinessLayer.ValidationRules.GuideValidator
 {
-    public class CreateGuideValidator : AbstractValidator<CreateGuideDto>
+    public class CreateGuideValidators : AbstractValidator<CreateGuideDto>
     {
-        public CreateGuideValidator()
+        public CreateGuideValidators()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Ad Alanı Boş Geçilmez.");
             RuleFor(x => x.Image).NotEmpty().WithMessage("Görsel Alanı Boş Geçilmez.");

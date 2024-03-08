@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
+using BussinessLayer.ValidationRules.ReservationValidatior;
+using DtoLayer.GenericNotificationDtos;
 using DtoLayer.ReservationDtos;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,7 +27,7 @@ namespace ProjectAPI.Controllers
         [HttpGet("SelectListForDropdown")]
         public IActionResult SelectListForDropdown()
         {
-           // List<SelectListItem> value = (from x in _destinationService.TGetList() select new SelectListItem {Text=x.City,Value=x.DestinationID.ToString() }).ToList();
+            // List<SelectListItem> value = (from x in _destinationService.TGetList() select new SelectListItem {Text=x.City,Value=x.DestinationID.ToString() }).ToList();
             return Ok();
         }
 
@@ -52,21 +55,45 @@ namespace ProjectAPI.Controllers
         [HttpPost]
         public IActionResult CreateReservation(CreateResarvationDto createResarvationDto)
         {
-
-            Reservation comment = new Reservation()
+            if (createResarvationDto.Description == null)
             {
-               AppUserId=createResarvationDto.AppUserId,
-               Description=createResarvationDto.Description,
-              // Destination=createResarvationDto.Destination,
-               PersonCount=createResarvationDto.PersonCount,
-               ReservastionDate=createResarvationDto.ReservastionDate,
-               Status=createResarvationDto.Status,
-               
-               
+                createResarvationDto.Description = "Açıklama Yok";
+            }
 
-            };
-            _reservationService.TInsert(comment);
-            return Ok();
+            ReservationValidatiors validationRules = new ReservationValidatiors();
+            ValidationResult validationResult = validationRules.Validate(createResarvationDto);
+            if (validationResult.IsValid)
+            {
+                Reservation comment = new Reservation()
+                {
+                    AppUserId = createResarvationDto.AppUserId,
+                    Description = createResarvationDto.Description,
+                    DestinationID = createResarvationDto.DestinationID,
+                    PersonCount = createResarvationDto.PersonCount,
+                    ReservastionDate = createResarvationDto.ReservastionDate,
+                    Status = createResarvationDto.Status,
+                };
+                _reservationService.TInsert(comment);
+                return Ok();
+            }
+            else
+            {
+
+                List<ResultNotificationDto> ErrorList = new List<ResultNotificationDto>();
+                foreach (var item in validationResult.Errors)
+                {
+                    ResultNotificationDto resultNotificationDto = new ResultNotificationDto();
+                    resultNotificationDto.Description = item.ErrorMessage;
+                    resultNotificationDto.PropertyName = item.PropertyName;
+                    ErrorList.Add(resultNotificationDto);
+                }
+
+                return BadRequest(ErrorList);
+            }
+
+
+
+
         }
     }
 }

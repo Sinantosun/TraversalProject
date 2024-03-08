@@ -33,7 +33,7 @@ namespace ProjectAPI.Controllers
         [HttpPost]
         public IActionResult CreateGuide(CreateGuideDto createGuideDto)
         {
-            CreateGuideValidator validationRules = new CreateGuideValidator();
+            CreateGuideValidators validationRules = new CreateGuideValidators();
             ValidationResult validationResult = validationRules.Validate(createGuideDto);
             if (validationResult.IsValid)
             {

@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace BussinessLayer.ValidationRules.DestinationValidatior
 {
-    public class DestinationValidator : AbstractValidator<CreateDestinationDto>
+    public class DestinationValidators : AbstractValidator<CreateDestinationDto>
     {
-        public DestinationValidator()
+        public DestinationValidators()
         {
             RuleFor(x => x.Capacity).NotEmpty().WithMessage("Boş Geçilemez.");
             RuleFor(x => x.City).NotEmpty().WithMessage("Boş Geçilemez.");

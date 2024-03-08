@@ -1,5 +1,5 @@
 ﻿using BussinessLayer.Abstract;
-using BussinessLayer.ValidationRules;
+using BussinessLayer.ValidationRules.LoginRegisterValidatiors;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DtoLayer.LoginDtos;
 using DtoLayer.RegisterDtos;
