@@ -37,6 +37,55 @@ namespace ProjectAPI.Controllers
             var value = mapper.Map<ResultByIdForDestinationDto>(_destinationService.TGetById(id));
             return Ok(value);
         }
+        [HttpGet("getDestinationByCityName/{name}")]
+        public IActionResult getDestinationByCityName(string name)
+        {
+            var value = mapper.Map<ResultByCityNameForDestinationDto>(_destinationService.TgetDestinationByCityName(name));
+            if (value != null)
+            {
+                return Ok(value);
+            }
+            else
+            {
+                return BadRequest("Bulunamadı");
+            }
+        }
+
+        [HttpPut("updateDestinationByCityName")]
+        public IActionResult updateDestinationByCityName(UpdateDestinationDto updateDestinationDto,string name)
+        {
+            var value = _destinationService.TgetDestinationByCityName(name);
+            if (value != null)
+            {
+                value.Capacity = updateDestinationDto.Capacity;
+                value.City=updateDestinationDto.City;
+                value.CoverImage=updateDestinationDto.CoverImage;
+                value.DayNight=updateDestinationDto.DayNight;
+                value.Description=updateDestinationDto.Description;
+                value.DestinationID=updateDestinationDto.DestinationID;
+                value.Details1=updateDestinationDto.Details1;
+                value.Details2=updateDestinationDto.Details2;
+                value.Image=updateDestinationDto.Image;
+                value.Price=updateDestinationDto.Price;
+                
+                _destinationService.TUpdate(value);
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+
+        [HttpDelete("deleteDestinationByCityName/{name}")]
+        public IActionResult deleteDestinationByCityName(string name)
+        {
+            var value = _destinationService.TgetDestinationByCityName(name);
+            if (value != null)
+            {
+                _destinationService.TdeleteDestinationByCityName(name);
+                return Ok();
+            }
+            return BadRequest();
+        }
         [HttpPost]
         public IActionResult CreateDestination(CreateDestinationDto createDestinationDto)
         {
@@ -55,10 +104,11 @@ namespace ProjectAPI.Controllers
                 List<ResultNotificationDto> ErrorList = new List<ResultNotificationDto>();
                 foreach (var item in validationResult.Errors)
                 {
-                    ResultNotificationDto resultNotificationDto = new ResultNotificationDto();
-                    resultNotificationDto.Description = item.ErrorMessage;
-                    resultNotificationDto.PropertyName = item.PropertyName;
-                    ErrorList.Add(resultNotificationDto);
+                    ErrorList.Add(new ResultNotificationDto()
+                    {
+                        Description = item.ErrorMessage,
+                        PropertyName = item.PropertyName
+                    });
                 }
                 return BadRequest(ErrorList);
             }
@@ -69,7 +119,7 @@ namespace ProjectAPI.Controllers
         {
             try
             {
-             
+
 
                 createDestinationDto.Status = true;
                 var mapValue = mapper.Map<Destination>(createDestinationDto);

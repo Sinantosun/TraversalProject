@@ -1,0 +1,399 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Rota İşlemleri</h2>
+<br />
+
+
+<div class="alert alert-primary alertnavbar" style="display:none" role="alert">
+</div>
+
+<input type="text" class="form-control" id="txtCityName" placeholder="Rota Adı" />
+<br />
+<button type="button" id="btngetbyname" class="btn btn-outline-secondary">Rota Getir</button>
+<button type="button" id="btngetlist" class="btn btn-outline-info">Rota Listesi</button>
+
+
+<button type="button" id="btnaddcity" class="btn btn-outline-primary">Rota Ekle</button>
+<button type="button" id="btndeletecity" class="btn btn-outline-danger">Rota Sil</button>
+<button type="button" id="btnupdatecity" class="btn btn-outline-success ">Rota Güncelle</button>
+<br />
+<br />
+
+<div id="dataList"></div>
+
+<div class="modal" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title ">Yeni Rota Ekleme Ekranı</h3>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p style="display:none; text-align:center; " class="alertparagraph text-danger"><small><strong>Lütfen Aşağıdaki Uyarıları Kontrol Edin.</strong> </small></p>
+                <p><small><strong>* İşaretli Alanların Doldurulması Gereklidir.</strong> </small></p>
+                @Html.Label("Şehir Adı *")
+                <input type="text" id="txtCity" class="form-control City" />
+
+                @Html.Label("Gün Gece (Örn : 2 Gece 3 Gün) *")
+                <input type="text" id="txtDayNight" class="form-control" />
+
+                @Html.Label("Fiyat *")
+                <input type="text" id="txtPrice" class="form-control" />
+
+                @Html.Label("Görsel *")
+                <input type="text" id="txtImgFile" class="form-control" />
+
+                @Html.Label("2. Görsel Alanı *")
+                <input type="text" id="txtImgFile2" class="form-control" />
+
+                @Html.Label("Açıklama *")
+                <input type="text" id="txtDescription" class="form-control" />
+
+                @Html.Label("Kapasite *")
+                <input type="text" id="txtCapacity" class="form-control" />
+
+                @Html.Label("Kapak Görseli *")
+                <input type="text" id="txtCoverPhotoImg" class="form-control" />
+
+                @Html.Label("Açıklama Alanı 1 *")
+                <input type="text" id="txtDescription2" class="form-control" />
+
+                @Html.Label("Açıklama Alanı 2 *")
+                <input type="text" id="txtDescription3" class="form-control" />
+            </div>
+            <div class="alert alert-danger" id="errorlist" style="display:none"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-success btnCityAddModalButton">Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bilgilendirme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="deleteModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-outline-danger deleteUserConfirm">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="exampleModal3" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title ">Rota Güncelleme Ekranı</h3>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p style="display:none; text-align:center; " class="alertparagraph text-danger"><small><strong>Lütfen Aşağıdaki Uyarıları Kontrol Edin.</strong> </small></p>
+                <p><small><strong>* İşaretli Alanların Doldurulması Gereklidir.</strong> </small></p>
+
+                <input type="hidden" id="uptxtCityID" class="form-control" />
+
+                @Html.Label("Şehir Adı *")
+                <input type="text" id="uptxtCity" class="form-control" />
+
+                @Html.Label("Gün Gece (Örn : 2 Gece 3 Gün) *")
+                <input type="text" id="uptxtDayNight" class="form-control" />
+
+                @Html.Label("Fiyat *")
+                <input type="text" id="uptxtPrice" class="form-control" />
+
+                @Html.Label("Görsel *")
+                <input type="text" id="uptxtImgFile" class="form-control" />
+
+                @Html.Label("2. Görsel Alanı *")
+                <input type="text" id="uptxtImgFile2" class="form-control" />
+
+                @Html.Label("Açıklama *")
+                <input type="text" id="uptxtDescription" class="form-control" />
+
+                @Html.Label("Kapasite *")
+                <input type="text" id="uptxtCapacity" class="form-control" />
+
+                @Html.Label("Kapak Görseli *")
+                <input type="text" id="uptxtCoverPhotoImg" class="form-control" />
+
+                @Html.Label("Açıklama Alanı 1 *")
+                <input type="text" id="uptxtDescription2" class="form-control" />
+
+                @Html.Label("Açıklama Alanı 2 *")
+                <input type="text" id="uptxtDescription3" class="form-control" />
+            </div>
+            <div class="alert alert-danger" id="uperrorlist" style="display:none"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-success btnCityUpdateModalButton">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(function () {
+
+        var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        var modal1 = new bootstrap.Modal(document.getElementById('exampleModal1'));
+        var modal2 = new bootstrap.Modal(document.getElementById('exampleModal3'));
+
+
+        $("#btngetlist").click(function () {
+
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/admin/city/CityList",
+                success: function (data) {
+                    let w = jQuery.parseJSON(data);
+
+                    let tablehtml = "<table class=table table-hover><tr><th>Şehir Adı</th><th>Gün - Gece</th><th>Fiyatı</th></tr> ";
+                    $.each(w, (index, value) => {
+                        tablehtml += `<tr><td>${value.city}</td> <td>${value.dayNight}</td><td>${value.price} ₺</td></tr>`
+                    });
+                    tablehtml += "</table>";
+                    $("#dataList").empty();
+                    $("#dataList").html(tablehtml);
+                }
+            });
+
+        });
+
+        $("#btnaddcity").click(function () {
+            modal.show();
+
+        });
+
+        $(".btnCityAddModalButton").click(function () {
+            $(".btnCityAddModalButton").attr("disabled", true);
+            let cityValues = {
+                City: $("#txtCity").val(),
+                DayNight: $("#txtDayNight").val(),
+                Price: $("#txtPrice").val(),
+                Image: $("#txtImgFile").val(),
+                Image2: $("#txtImgFile2").val(),
+                Description: $("#txtDescription").val(),
+                Capacity: $("#txtCapacity").val(),
+                CoverImage: $("#txtCoverPhotoImg").val(),
+                Details1: $("#txtDescription2").val(),
+                Details2: $("#txtDescription3").val(),
+
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/admin/city/AddCityDestination",
+                data: cityValues,
+                success: function (data) {
+
+                    if (data == "success") {
+                        modal.hide();
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text("Yeni Rota Başarıyla Eklendi..!");
+                        $(".alertnavbar").fadeToggle(2000);
+
+
+                        document.getElementById("txtCity").value = "";
+                        document.getElementById("txtDayNight").value = "";
+                        document.getElementById("txtImgFile").value = "";
+                        document.getElementById("txtImgFile2").value = "";
+                        document.getElementById("txtDescription").value = "";
+                        document.getElementById("txtCapacity").value = "";
+                        document.getElementById("txtCoverPhotoImg").value = "";
+                        document.getElementById("txtDescription2").value = "";
+                        document.getElementById("txtDescription3").value = "";
+                        document.getElementById("txtPrice").value = "";
+
+                        $(".btnCityAddModalButton").attr("disabled", false);
+
+                        $(".alertparagraph").fadeOut(100);
+                        $("#errorlist").fadeOut(100);
+                    }
+                    else {
+                        $(".btnCityAddModalButton").attr("disabled", false);
+                        $("#errorlist").empty();
+                        $("#errorlist").fadeIn(750);
+
+                        $(".alertparagraph").fadeIn(500);
+                        let w = jQuery.parseJSON(data);
+                        $.each(w, (index, value) => {
+                            $('#errorlist').append('<p>' + value.description + '</p>');
+                        });
+                    }
+
+                }
+
+
+            });
+        });
+
+        $("#btngetbyname").click(function () {
+            $("#dataList").empty();
+            var value = $("#txtCityName").val();
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/admin/city/CityListByCityName/",
+                data: { name: value },
+                success: function (data) {
+                    if (data == "err") {
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text("Hata! Aradığınız Rota - (" + value + ") Bulunamadı.");
+                        $(".alertnavbar").fadeOut(2100);
+                    }
+                    else {
+                        let w = jQuery.parseJSON(data);
+                        let tablehtml = "<table class=table table-hover><tr><th>Şehir Adı</th><th>Gün - Gece</th><th>Fiyatı</th></tr> ";
+
+                        tablehtml += `<tr><td>${w.city}</td> <td>${w.dayNight}</td><td>${w.price} ₺</td></tr>`
+
+                        tablehtml += "</table>";
+
+                        $("#dataList").html(tablehtml);
+                    }
+                }
+            });
+        });
+
+        $("#btndeletecity").click(function () {
+            var value = $("#txtCityName").val();
+            if (value.trim() === "") {
+                $(".alertnavbar").fadeIn(1000);
+                $(".alertnavbar").text("Lütfen Önce Silmek İstenilen Rota Adını Yazınız.");
+                $(".alertnavbar").fadeOut(2100);
+            }
+            else {
+                document.getElementById("deleteModalBody").innerHTML = "Rota Adı : <b>" + value + "</b> Olan Kaydı Silmek İstediğinizden Emin Misiniz? <br> <b>Bu İşlem Geri Alanımaz.</b>";
+                modal1.show();
+            }
+        
+        });
+
+        $(".deleteUserConfirm").click(function () {
+            var value = $("#txtCityName").val();
+            modal1.hide();
+            $.ajax({
+                type: "Get",
+                url: "/admin/city/deleteByCityName/",
+                data: { name: value },
+                success: function (data) {
+                    if (data == "err") {
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text(value + " - silinmedi veri tabanında lütfen böyle bir rota kaydı olduğundan emin olun..");
+                        $(".alertnavbar").fadeOut(2100);
+                    }
+                    else {
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text(value + " - Silindi.");
+                        $(".alertnavbar").fadeOut(2100);
+                    }
+                }
+            });
+
+        });
+
+        $("#btnupdatecity").click(function () {
+            var value = $("#txtCityName").val();
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                data: { name: value },
+                url: "/admin/city/CityListByCityName",
+                success: function (data) {
+                    if (data == "err") {
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text("Hata! Aradığınız Rota - (" + value + ") Bulunamadı.");
+                        $(".alertnavbar").fadeOut(2100);
+                    }
+                    else {
+                        let w = jQuery.parseJSON(data);
+                        $("#uptxtCity").val(w.city);
+                        $("#uptxtCityID").val(w.destinationID);
+                        $("#uptxtDayNight").val(w.dayNight);
+                        $("#uptxtPrice").val(w.price);
+                        $("#uptxtImgFile").val(w.image);
+                        $("#uptxtImgFile2").val(w.image2);
+                        $("#uptxtDescription").val(w.description);
+                        $("#uptxtCapacity").val(w.capacity);
+                        $("#uptxtCoverPhotoImg").val(w.coverImage);
+                        $("#uptxtDescription2").val(w.details2);
+                        $("#uptxtDescription3").val(w.details1);
+                        modal2.show();
+                    }
+
+                }
+
+            });
+        });
+
+        $(".btnCityUpdateModalButton").click(function () {
+            var value = $("#txtCityName").val();
+            let cityValues = {
+                destinationID: $("#uptxtCityID").val(),
+                City: $("#uptxtCity").val(),
+                DayNight: $("#uptxtDayNight").val(),
+                Price: $("#uptxtPrice").val(),
+                Image: $("#uptxtImgFile").val(),
+                Image2: $("#uptxtImgFile2").val(),
+                Description: $("#uptxtDescription").val(),
+                Capacity: $("#uptxtCapacity").val(),
+                CoverImage: $("#uptxtCoverPhotoImg").val(),
+                Details1: $("#uptxtDescription2").val(),
+                Details2: $("#uptxtDescription3").val(),
+
+            };
+
+            $.ajax({
+                type: "Post",
+                data: { UpdateDestinationDto: cityValues, name: value },
+                url: "/admin/city/updateByCityName",
+                success: function (data) {
+                    if (data == "err") {
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text("Hata! Aradığınız Rota - (" + value + ") Bulunamadı. Veya Güncellenemedi.. Bir Hata Oluştu.");
+                        $(".alertnavbar").fadeOut(2100);
+                        modal2.hide();
+                    }
+                    else {
+
+                        document.getElementById("txtCityName").value = "";
+                        $(".alertnavbar").fadeIn(1000);
+                        $(".alertnavbar").text("Başarıyla Güncellendi.");
+                        $(".alertnavbar").fadeOut(2100);
+                        modal2.hide();
+                    }
+                }
+
+            });
+
+
+
+        });
+
+    });
+
+
+
+</script>
+
