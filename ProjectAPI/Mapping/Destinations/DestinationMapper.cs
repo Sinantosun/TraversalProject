@@ -12,6 +12,7 @@ namespace ProjectAPI.Mapping.Destinations
             CreateMap<Destination, ResultByIdForDestinationDto>().ReverseMap();
             CreateMap<Destination, CreateDestinationDto>().ReverseMap();
             CreateMap<Destination, UpdateDestinationDto>().ReverseMap();
+            CreateMap<Destination, ResultByCityNameForDestinationDto>().ReverseMap();
         }
     }
 }

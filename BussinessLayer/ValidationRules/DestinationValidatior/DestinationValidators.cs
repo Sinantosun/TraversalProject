@@ -9,16 +9,17 @@ namespace BussinessLayer.ValidationRules.DestinationValidatior
     {
         public DestinationValidators()
         {
-            RuleFor(x => x.Capacity).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.City).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.DayNight).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Boş Geçilemez.");
+            RuleFor(x => x.Capacity).NotEmpty().WithMessage("Kapasite Alanı Boş Geçilemez.");
+            RuleFor(x => x.CoverImage).NotEmpty().WithMessage("Kapak Fotoğraf Alanı Boş Geçilemez.");
+            RuleFor(x => x.City).NotEmpty().WithMessage("Şehir Alanı Boş Geçilemez.");
+            RuleFor(x => x.DayNight).NotEmpty().WithMessage("Gün Gece Alanı Boş Geçilemez.");
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Açıkalma Boş Geçilemez.");
             RuleFor(x => x.Description).MaximumLength(100).WithMessage("Lütfen açıklamayı 100 karakden kısa tutun.");
-            RuleFor(x => x.Details1).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Details2).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Image).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Image2).NotEmpty().WithMessage("Boş Geçilemez.");
-            RuleFor(x => x.Price).NotEmpty().WithMessage("Boş Geçilemez.");
+            RuleFor(x => x.Details1).NotEmpty().WithMessage("Detay 1 Alanı Boş Geçilemez.");
+            RuleFor(x => x.Details2).NotEmpty().WithMessage("Detay 2 Alanı Boş Geçilemez.");
+            RuleFor(x => x.Image).NotEmpty().WithMessage("Görsel Alanı Boş Geçilemez.");
+            RuleFor(x => x.Image2).NotEmpty().WithMessage("Gösel 2 Alanı Boş Geçilemez.");
+            RuleFor(x => x.Price).NotEmpty().WithMessage("Fiyat Alanı Boş Geçilemez.");
 
 
         }

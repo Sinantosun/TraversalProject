@@ -46,10 +46,11 @@ namespace ProjectAPI.Controllers
                 List<ResultNotificationDto> ErrorList = new List<ResultNotificationDto>();
                 foreach (var item in validationResult.Errors)
                 {
-                    ResultNotificationDto ErorrListDetails = new ResultNotificationDto();
-                    ErorrListDetails.PropertyName = item.PropertyName;
-                    ErorrListDetails.Description = item.ErrorMessage;
-                    ErrorList.Add(ErorrListDetails);
+                    ErrorList.Add(new ResultNotificationDto()
+                    {
+                        Description = item.ErrorMessage,
+                        PropertyName =item.PropertyName
+                    });
                 }
 
 

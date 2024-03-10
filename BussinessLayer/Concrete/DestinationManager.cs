@@ -19,9 +19,20 @@ namespace BussinessLayer.Concrete
             _IDestinationDal.Delete(t);
         }
 
+        public void TdeleteDestinationByCityName(string name)
+        {
+
+            _IDestinationDal.deleteDestinationByCityName(name);
+        }
+
         public Destination TGetById(int id)
         {
             return _IDestinationDal.GetById(id);
+        }
+
+        public Destination TgetDestinationByCityName(string name)
+        {
+            return _IDestinationDal.getDestinationByCityName(name);
         }
 
         public int TGetDestinationService()
