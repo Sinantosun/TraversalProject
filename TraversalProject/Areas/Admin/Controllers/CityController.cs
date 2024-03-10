@@ -9,7 +9,7 @@ using TraversalProject.Dtos.DestinationDtos;
 namespace TraversalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [AllowAnonymous]
+
     public class CityController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

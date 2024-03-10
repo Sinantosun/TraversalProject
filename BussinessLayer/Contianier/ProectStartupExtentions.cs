@@ -38,6 +38,12 @@ namespace BussinessLayer.Contianier
             services.AddScoped<IExcelService, ExcelManager>();
             services.AddScoped<IMailService, MailManger>();
 
+            services.AddScoped<IContactUsSerivce, ContactUsManager>();
+            services.AddScoped<IContactUsDal, EFContactUsDal>();
+
+            services.AddScoped<IAnnounecementService, AnnouncementManager>();
+            services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
+
         }
     }
 }
