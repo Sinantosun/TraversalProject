@@ -7,6 +7,7 @@ using BussinessLayer.Contianier;
 using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
 using DataAccsesLayer.EntityFreamework;
+using FluentValidation.AspNetCore;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
