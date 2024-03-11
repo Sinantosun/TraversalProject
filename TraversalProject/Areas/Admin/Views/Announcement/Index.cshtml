@@ -1,0 +1,47 @@
+﻿@model List<ResultAnnouncumentDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<h1>Duyuru Listesi</h1>
+
+
+@if (TempData["Result"] != null)
+{
+    <div class="form-group">
+        <br />
+        <div class="alert alert-@TempData["Icon"] alert-dismissible" role="alert">
+            @TempData["Result"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <br />
+    </div>
+}
+
+
+<a href="/Admin/Announcement/AddAnnouncement/" class="btn btn-primary">Yeni Duyuru Ekle</a>
+<br /><br />
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Başlık</th>
+        <th>içerik</th>
+        <th>Tarih</th>
+        <th colspan="2" class="text-center">İşlem</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <td>@item.Title</td>
+            <td>@item.Content</td>
+            <td>@(((DateTime)item.Date).ToString("D"))</td>
+            <td><a href="/Admin/Announcement/DeleteAnnouncement/@item.AnnouncementID" class="btn btn-outline-danger"> Sil</a></td>
+            <td><a href="/Admin/Announcement/UpdateAnnouncement/@item.AnnouncementID" class="btn btn-outline-success"> Güncelle</a></td>
+        </tr>
+
+    }
+</table>

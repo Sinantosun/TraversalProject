@@ -9,15 +9,11 @@
 @if (ViewBag.Result != null)
 {
     <div class="alert alert-@ViewBag.Icon alert-dismissible" role="alert">
-        @(ViewBag.RawStatus == true ? Html.Raw(ViewBag.Result) : ViewBag.Result)
+         @ViewBag.Result
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
-
 }
-<style>
 
-</style>
 <form method="post">
 
     <div class="form-group">
