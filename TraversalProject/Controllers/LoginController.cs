@@ -101,62 +101,80 @@ namespace TraversalProject.Controllers
             {
                 await _signInManager.SignOutAsync();
                 var user = await _usermanger.FindByNameAsync(loginDto.UserName);
-                var userCheckPWD = await _usermanger.CheckPasswordAsync(user, loginDto.Password);
-                DateTime UserLastChangePasswordDate = Convert.ToDateTime(user.ThreeMonthsLaterPasswordDate);
-                DateTime DateNow = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                TimeSpan Fark = UserLastChangePasswordDate - DateNow;
-                if (user.ChangePasswordEveryThreeMonthsIsActive == true && Fark.TotalDays <= 0)
+                if (user != null)
                 {
-                    if (userCheckPWD)
-                    {
-                        status = false;
-                        ModelState.AddModelError("", "Hesabınızın Şifre Süresi Dolmuştur. Lütfen Mail Adresinize Gönderilen Şifre Yenileme Mailini Kontrol Ediniz.");
-                        var generateResetToken = await _usermanger.GeneratePasswordResetTokenAsync(user);
-                        _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifrenizin Süresi (90 Gün) Dolmuştur Şifrenizi Aşağıdaki Linkden Yeniliyebilirsiniz. <br><br> Eğer bu özelliği kapatmak isterseniz (önerilmez)  Hesap Aylarınızdan her 3 ayda bir şifre yenileme özelliğini kapatarak işlemleri gerçekleşirebilirsiniz. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = user.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", user.Email);
-                    }
-                    else
-                    {
-                        status = false;
-                        ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
-                    }
-                }
-                else
-                {
-                    status = true;
-                }
-                if (status)
-                {
-                    var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, false, true);
-                    if (result.RequiresTwoFactor)
-                    {
-                        var genareteTwoFactorToken = await _usermanger.GenerateTwoFactorTokenAsync(user, "Email");
-                        ResultDto MailResult2 = _mailService.SendMail2("İki Adımlı Doğrulama Kodu", "Doğrulama Kodunuz: " + genareteTwoFactorToken, user.Email);
+                    var userCheckPWD = await _usermanger.CheckPasswordAsync(user, loginDto.Password);
 
-                        if (MailResult2.status == true)
+                    DateTime UserLastChangePasswordDate = Convert.ToDateTime(user.ThreeMonthsLaterPasswordDate);
+                    DateTime DateNow = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                    TimeSpan Fark = UserLastChangePasswordDate - DateNow;
+                    if (user.ChangePasswordEveryThreeMonthsIsActive == true && Fark.TotalDays <= 0)
+                    {
+                        if (userCheckPWD)
                         {
-                            return RedirectToAction("TwoFactorAuth", "Login");
+                            status = false;
+                            ModelState.AddModelError("", "Hesabınızın Şifre Süresi Dolmuştur. Lütfen Mail Adresinize Gönderilen Şifre Yenileme Mailini Kontrol Ediniz.");
+                            var generateResetToken = await _usermanger.GeneratePasswordResetTokenAsync(user);
+                            _mailService.SendMail2("Şifre Sıfırlama", $"Merhaba, Şifrenizin Süresi (90 Gün) Dolmuştur Şifrenizi Aşağıdaki Linkden Yeniliyebilirsiniz. <br><br> Eğer bu özelliği kapatmak isterseniz (önerilmez)  Hesap Aylarınızdan her 3 ayda bir şifre yenileme özelliğini kapatarak işlemleri gerçekleşirebilirsiniz. <br><br>Bu işlem size ait değilse lütfen bizimle iletişime geçiniz. <br><br> <a target=\"blank\" style=\"appearance: none; text-decoration: none; height:35px; width:200px; background-color: #2ea44f; border: 1px solid rgba(27, 31, 35, .15);  border-radius: 6px;  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;  box-sizing: border-box;  color: #fff; cursor: pointer; text-align:center;  display: inline-block; font-family: -apple-system,system-ui,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;  font-size: 14px;  font-weight: 600; line-height: 20px;  padding: 6px 16px;  position: relative; text-align: center;  text-decoration: none;  user-select: none;  -webkit-user-select: none; touch-action: manipulation;  vertical-align: middle; white-space: nowrap;\"  target=\"_blank\" href=\"https://localhost:7100{Url.Action("ResetPassword", "Login", new { userId = user.Id, token = HttpUtility.UrlEncode(generateResetToken) })}\">Şifre Güncelle</a><br><br> Admin", user.Email);
                         }
                         else
                         {
-                            ModelState.AddModelError("", MailResult2.description);
-                            return View();
+                            status = false;
+                            ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
                         }
-                    }
-                    else if (result.Succeeded)
-                    {
-                        if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
-                            return RedirectToAction("Index", "Profile", new { area = "Members" });
-                        return Redirect(TempData["returnUrl"].ToString());
                     }
                     else
                     {
-
-                        ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
-                        return View();
+                        status = true;
                     }
+                    if (status)
+                    {
+                        var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.Password, false, true);
+                        if (!result.IsLockedOut)
+                        {
+                            if (result.RequiresTwoFactor)
+                            {
+                                var genareteTwoFactorToken = await _usermanger.GenerateTwoFactorTokenAsync(user, "Email");
+                                ResultDto MailResult2 = _mailService.SendMail2("İki Adımlı Doğrulama Kodu", "Doğrulama Kodunuz: " + genareteTwoFactorToken, user.Email);
 
+                                if (MailResult2.status == true)
+                                {
+                                    return RedirectToAction("TwoFactorAuth", "Login");
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("", MailResult2.description);
+                                    return View();
+                                }
+                            }
+                            else if (result.Succeeded)
+                            {
+                                if (string.IsNullOrEmpty(TempData["returnUrl"] != null ? TempData["returnUrl"].ToString() : ""))
+                                    return RedirectToAction("Index", "Profile", new { area = "Members" });
+                                return Redirect(TempData["returnUrl"].ToString());
+                            }
+                            else
+                            {
+
+                                ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Hatalı Girişler sebebiyle hesabınız kitlendi lütfen şu tarihte tekrar deneyin: " + user.LockoutEnd);
+                        }
+
+
+                    }
+                    return View();
                 }
-                return View();
+                else
+                {
+                    ModelState.AddModelError("","Kullanıcı Tanınamadı");
+                    return View();
+                }
+               
 
             }
             else

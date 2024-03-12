@@ -4,6 +4,130 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <h4>Profile Güncelleme Sayfası</h4>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+@* @if (ViewBag.ResultPassword != null)
+{
+    <div class="alert alert-danger">
+        <b><small style="color:white">Şifre Hataları</small></b>
+
+        <p style="color:white">@(Html.Raw(ViewBag.ResultPassword))</p>
+    </div>
+}
+ *@
+
+<script type="text/javascript">
+
+    function TestOnTextChange2(data) {
+        var result = data;
+        var reqiureMinLenght = document.getElementById("reqiureMinLenght");
+        var reqiureUpperCase = document.getElementById("reqiureUpperCase");
+        var reqiureLowerCase = document.getElementById("reqiureLowerCase");
+        var reqiureDigit = document.getElementById("reqiureDigit");
+        var RegexChar = document.getElementById("RegexChar");
+
+
+        //digitInt
+        $.ajax({
+            type: 'get',
+            url: '/Members/Profile/PasswordRequireFormats/',
+            data: { value: result },
+            success: function (jsondata) {
+                console.log(jsondata);
+                if (jsondata == "err") {
+                    reqiureMinLenght.classList.add("bg-gradient-danger");
+                    reqiureLowerCase.classList.add("bg-gradient-danger");
+                    reqiureUpperCase.classList.add("bg-gradient-danger");
+                    reqiureDigit.classList.add("bg-gradient-danger");
+                    RegexChar.classList.add("bg-gradient-danger");
+
+                    reqiureMinLenght.innerText = "X";
+                    reqiureLowerCase.innerText = "X";
+                    reqiureUpperCase.innerText = "X";
+                    reqiureMinLenght.innerText = "X";
+                    reqiureDigit.innerText = "X";
+                    reqiureDigit.RegexChar = "X";
+                }
+                else {
+                    if (jsondata.valueLenght >= 6) {
+                        reqiureMinLenght.classList.add("bg-gradient-success");
+                        reqiureMinLenght.classList.remove("bg-gradient-danger");
+                        reqiureMinLenght.innerText = "✓";
+                    }
+                    else {
+                        reqiureMinLenght.classList.add("bg-gradient-danger");
+                        reqiureMinLenght.innerText = "X";
+                    }
+                    if (jsondata.upperCaseInt < 1) {
+
+                        reqiureUpperCase.classList.add("bg-gradient-danger");
+                        reqiureUpperCase.classList.remove("bg-gradient-success");
+                        reqiureUpperCase.innerText = "X";
+                    }
+                    else {
+
+                        reqiureUpperCase.classList.add("bg-gradient-success");
+                        reqiureUpperCase.classList.remove("bg-gradient-danger");
+                        reqiureUpperCase.innerText = "✓";
+                    }
+
+                    if (jsondata.lowerCaseInt < 1) {
+
+                        reqiureLowerCase.classList.remove("bg-gradient-success");
+                        reqiureLowerCase.classList.add("bg-gradient-danger");
+                        reqiureLowerCase.innerText = "X";
+                    }
+                    else {
+
+                        reqiureLowerCase.classList.add("bg-gradient-success");
+                        reqiureLowerCase.classList.remove("bg-gradient-danger");
+                        reqiureLowerCase.innerText = "✓";
+                    }
+
+                    if (jsondata.digitInt < 1) {
+
+                        reqiureDigit.classList.remove("bg-gradient-success");
+                        reqiureDigit.classList.add("bg-gradient-danger");
+                        reqiureDigit.innerText = "X";
+                    }
+                    else {
+
+                        reqiureDigit.classList.add("bg-gradient-success");
+                        reqiureDigit.classList.remove("bg-gradient-danger");
+                        reqiureDigit.innerText = "✓";
+                    }
+
+                    if (jsondata.regexChar == false) {
+
+                        RegexChar.classList.remove("bg-gradient-success");
+                        RegexChar.classList.add("bg-gradient-danger");
+                        RegexChar.innerText = "X";
+                    }
+                    else {
+
+                        RegexChar.classList.add("bg-gradient-success");
+                        RegexChar.classList.remove("bg-gradient-danger");
+                        RegexChar.innerText = "✓";
+                    }
+                    //regexChar
+                }
+
+
+            }
+
+        });
+    }
+</script>
+
+
+<div class="alert alert-warning">
+    <p>Parola Minumum 6 karakter olmalıdır  <span class="badge badge-sm" id="reqiureMinLenght"></span></p>
+    <p>Şifrede özel karakter bulunmalıdır <span class="badge badge-sm " id="RegexChar"></span></p>
+    <p>Şifrede sayı bulunmalıdır <span class="badge badge-sm bg" id="reqiureDigit"></span></p>
+    <p> Şifrede en az 1 tane büyük harf bulunmalıdır. <span class="badge badge-sm" id="reqiureUpperCase"></span></p>
+    <p> Şifrede en az 1 tane kücük harf bulunmalıdır. <span class="badge badge-sm " id="reqiureLowerCase"></span></p>
+
+</div>
+
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
         @Html.Label("Adınız")
@@ -19,11 +143,13 @@
     </div>
     <div class="form-group">
         @Html.Label("Şifreniz")
-        <input type="password" asp-for="password" class="form-control" />
+        <input type="text" asp-for="password" class="form-control" id="textInput" onkeyup="TestOnTextChange2(value)" />
+        <span class="text-danger" asp-validation-for="confirmpassword"></span>
     </div>
     <div class="form-group">
         @Html.Label("Şifre Tekrar")
         <input type="password" asp-for="confirmpassword" class="form-control" />
+        <span class="text-danger" asp-validation-for="confirmpassword"></span>
     </div>
 
     <div class="form-group">
@@ -36,6 +162,6 @@
         <input type="file" asp-for="Image" class="form-control" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Güncelle" class="btn btn-outline-light" />
-    </div> 
+        <input type="submit" value="Güncelle" class="btn btn-outline-dark" />
+    </div>
 </form>

@@ -40,7 +40,7 @@
                     <span class="nav-link-text ms-1">Aktif Rezervasyonlarım</span>
                 </a>
             </li>
-           
+
             <li class="nav-item">
                 <a class="nav-link  " href="/Members/Reservation/MyOldReservation/">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -49,7 +49,7 @@
                     <span class="nav-link-text ms-1">Geçmiş Rezervasyonlarım</span>
                 </a>
             </li>
-       
+
             <li class="nav-item">
                 <a class="nav-link  " href="/Members/Reservation/MyApprovalReservation/">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -74,14 +74,18 @@
                     <span class="nav-link-text ms-1">Siteye Git</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link  " href="../pages/sign-in.html">
-                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center">
-                        <i class="fa fa-sign-out text-dark" style="font-size:10pt"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Çıkış Yap</span>
-                </a>
-            </li>
+            @if (User.Identity.Name != null)
+            {
+                <li class="nav-item">
+                    <a class="nav-link  " href="../pages/sign-in.html">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center">
+                            <i class="fa fa-sign-out text-dark" style="font-size:10pt"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Çıkış Yap</span>
+                    </a>
+                </li>
+            }
+        
         </ul>
     </div>
 </aside>

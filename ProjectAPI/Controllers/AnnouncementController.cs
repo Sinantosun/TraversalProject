@@ -4,6 +4,7 @@ using BussinessLayer.ValidationRules.AnnouncementIValidators;
 using DtoLayer.AnnouncementDtos;
 using DtoLayer.GenericNotificationDtos;
 using EntityLayer.Concrete;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,9 +50,29 @@ namespace ProjectAPI.Controllers
         [HttpPut]
         public IActionResult AnnouncementUpdate(UpdateAnnouncumentDto updateAnnouncumentDto)
         {
-            var mappedValues = _mapper.Map<Announcement>(updateAnnouncumentDto);
-            _announecementService.TUpdate(mappedValues);
-            return Ok();
+            AnnouncementUpdateValidator validationRules = new AnnouncementUpdateValidator();
+            ValidationResult validationResult = validationRules.Validate(updateAnnouncumentDto);
+            if (validationResult.IsValid)
+            {
+                var mappedValues = _mapper.Map<Announcement>(updateAnnouncumentDto);
+                _announecementService.TUpdate(mappedValues);
+                return Ok();
+            }
+            else
+            {
+                List<ResultNotificationDto> ResultNotificationDto = new List<ResultNotificationDto>();
+                ResultNotificationDto.Clear();
+                foreach (var item in validationResult.Errors)
+                {
+                    ResultNotificationDto.Add(new ResultNotificationDto()
+                    {
+                        Description = item.ErrorMessage,
+                        PropertyName = item.PropertyName
+                    });
+                }
+
+                return BadRequest(ResultNotificationDto);
+            }
         }
 
 
