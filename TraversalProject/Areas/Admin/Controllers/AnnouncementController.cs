@@ -61,7 +61,7 @@ namespace TraversalProject.Areas.Admin.Controllers
                     ModelState.AddModelError(item.PropertyName, item.Description);
                 }
             }
-            return RedirectToAction("AddAnnouncement", "Announcement", new { area = "Admin" });
+            return View();
         }
 
         [Route("DeleteAnnouncement/{id}")]
@@ -98,6 +98,7 @@ namespace TraversalProject.Areas.Admin.Controllers
             {
                 var data = await responseMessage.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<UpdateAnnouncumentDto>(data);
+                result.Date = Convert.ToDateTime(result.Date.ToString("d"));
                 return View(result);
             }
 
@@ -120,9 +121,13 @@ namespace TraversalProject.Areas.Admin.Controllers
             }
             else
             {
-                TempData["Result"] = "Güncellemede bir hata oluştu güncellenemedi..";
-                TempData["Icon"] = "danger";
-                return RedirectToAction("Index", "Announcement", new { area = "Admin" });
+                var read = await responseMessage.Content.ReadAsStringAsync();
+                var convertData = JsonConvert.DeserializeObject<List<ResultNotificationDto>>(read);
+                foreach (var item in convertData)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.Description);
+                }
+                return View();
             }
         }
     }
