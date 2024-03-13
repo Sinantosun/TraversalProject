@@ -5,15 +5,25 @@
 }
 <h4>Profile Güncelleme Sayfası</h4>
 <script src="~/js/jquery-3.4.1.min.js"></script>
-@* @if (ViewBag.ResultPassword != null)
+@if (ViewBag.ResultPassword != null)
 {
     <div class="alert alert-danger">
         <b><small style="color:white">Şifre Hataları</small></b>
-
         <p style="color:white">@(Html.Raw(ViewBag.ResultPassword))</p>
     </div>
 }
- *@
+else
+{
+
+    <div class="alert alert-warning">
+        <p>Parola Minumum 6 karakter olmalıdır  <span class="badge badge-sm" id="reqiureMinLenght"></span></p>
+        <p>Şifrede özel karakter bulunmalıdır <span class="badge badge-sm " id="RegexChar"></span></p>
+        <p>Şifrede sayı bulunmalıdır <span class="badge badge-sm bg" id="reqiureDigit"></span></p>
+        <p> Şifrede en az 1 tane büyük harf bulunmalıdır. <span class="badge badge-sm" id="reqiureUpperCase"></span></p>
+        <p> Şifrede en az 1 tane kücük harf bulunmalıdır. <span class="badge badge-sm " id="reqiureLowerCase"></span></p>
+    </div>
+}
+
 
 <script type="text/javascript">
 
@@ -32,6 +42,7 @@
             url: '/Members/Profile/PasswordRequireFormats/',
             data: { value: result },
             success: function (jsondata) {
+                console.clear();
                 console.log(jsondata);
                 if (jsondata == "err") {
                     reqiureMinLenght.classList.add("bg-gradient-danger");
@@ -45,7 +56,7 @@
                     reqiureUpperCase.innerText = "X";
                     reqiureMinLenght.innerText = "X";
                     reqiureDigit.innerText = "X";
-                    reqiureDigit.RegexChar = "X";
+                    RegexChar.innerText = "X";
                 }
                 else {
                     if (jsondata.valueLenght >= 6) {
@@ -119,14 +130,6 @@
 </script>
 
 
-<div class="alert alert-warning">
-    <p>Parola Minumum 6 karakter olmalıdır  <span class="badge badge-sm" id="reqiureMinLenght"></span></p>
-    <p>Şifrede özel karakter bulunmalıdır <span class="badge badge-sm " id="RegexChar"></span></p>
-    <p>Şifrede sayı bulunmalıdır <span class="badge badge-sm bg" id="reqiureDigit"></span></p>
-    <p> Şifrede en az 1 tane büyük harf bulunmalıdır. <span class="badge badge-sm" id="reqiureUpperCase"></span></p>
-    <p> Şifrede en az 1 tane kücük harf bulunmalıdır. <span class="badge badge-sm " id="reqiureLowerCase"></span></p>
-
-</div>
 
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">

@@ -67,7 +67,7 @@ namespace TraversalProject.Areas.Members.Controllers
                         foreach (var item in passwordResult.Errors)
                         {
                             ViewBag.ResultPassword += item.Description + "<br/>";
-                            ModelState.AddModelError("confirmpassword", "lütfen parola hatalarını kontrol edin.");
+                  
                         }
                     }
 
@@ -97,10 +97,8 @@ namespace TraversalProject.Areas.Members.Controllers
                 int _DigitInt = value.Length - Regex.Replace(value, "[0-9]", "").Length;
                 int _valueLenght = value.Length;
 
-                string pattern = "^[!@#$&()\\-`.+,/\"]*$";
+                string pattern = @"[\W]";
 
-
-             
 
                 bool _RegexChar = Regex.IsMatch(value, pattern);
 

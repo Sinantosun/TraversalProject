@@ -1,0 +1,76 @@
+﻿@model List<ResultVisitorDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script>
+    $(function () {
+
+        var _Id = 0;
+
+        $(".deletevisitor").click(function () {
+            var btnid = $(this).data("id");
+            _Id = btnid;
+            var modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            modal.show();
+        });
+
+        $(".deleteUserConfirm").click(function () {
+            window.location.href = '/Admin/VistorApi/DeleteVisitor/' + _Id;
+        });
+
+    })
+</script>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bilgilendirme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bu Kaydı Silmek İstediğinize Emin Misiniz? <br /> <strong>Bu İşlem Geri Alınamaz.</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-outline-dark deleteUserConfirm">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<h1>Ziyaretçi Listesi</h1>
+<a href="/Admin/VistorApi/CreateVisitor/" class="btn btn-primary">Yeni Ziyaretçi Ekle</a>
+<br />
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Şehir</th>
+        <th>Ülke</th>
+        <th>Mail</th>
+        <th colspan="2" class="text-center">İşlem</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.VistorsID</th>
+            <td>@item.name</td>
+            <td>@item.surname</td>
+            <td>@item.city</td>
+            <td>@item.country</td>
+            <td>@item.mail</td>
+            <td><a href="/Admin/VistorApi/EditVistor/@item.VistorsID" class="btn btn-success">Güncelle</a></td>
+       @*      <td><a href="/Admin/VistorApi/DeleteVisitor/@item.VistorsID" class="btn btn-danger">Sil</a></td> *@
+            <td><input type="button" value="Sil" data-id="@item.VistorsID" class="btn btn-danger deletevisitor" /></td>
+        </tr>
+    }
+</table>
