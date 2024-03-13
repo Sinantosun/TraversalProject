@@ -1,0 +1,28 @@
+﻿@model List<ResultMovieDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string decimalStr = "";
+}
+
+<h1>APİ IMDB TOP 100 Flim Listesi </h1>
+<br />
+
+<table class="table table-stripted">
+    <tr>
+        <th>Film Adı</th>
+        <th>Kapak Fotoğrafı</th>
+        <th>Imdb Yüzesi</th>
+        <th>Imdb</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        decimalStr = item.rating.ToString();
+        <tr>
+            <th>@item.title</th>
+            <td><img class="img" src="@item.thumbnail" /></td>
+            <td><progress id="file" value="@decimalStr.Replace(",",".")" max="10"> @decimalStr.Replace(",",".")/10 </progress></td>
+            <td><a href="@item.imdb_link" target="_blank">IMDB'de aç</a></td>
+        </tr>
+    }
+</table>

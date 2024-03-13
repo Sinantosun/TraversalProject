@@ -1,0 +1,47 @@
+﻿@model UpdateVisitorDto
+@{
+    ViewData["Title"] = "EditVistor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Ziyaretçi güncelleme sayfası</h1>
+<br />
+
+@if (ViewBag.Result != null)
+{
+    <div class="alert alert-primary">
+        @ViewBag.Result
+    </div>
+
+}
+
+<form method="post">
+    <input type="hidden" asp-for="VistorsID" class="form-control" />
+    <div class="form-group">
+        @Html.Label("Ad")
+        <input type="text" asp-for="name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Soyad")
+        <input type="text" asp-for="surname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Şehir")
+        <input type="text" asp-for="city" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Ülke")
+        <input type="text" asp-for="country" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Mail")
+        <input type="email" asp-for="mail" class="form-control" />
+    </div><br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-outline-success" value="Kaydet" />
+    </div>
+</form>

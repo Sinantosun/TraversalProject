@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ResultRapidAPIExchangeDto.Exchange_Rates> 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Rapid APİ - Exchange Kur Bilgileri.</h1>
+<br />
+<smal>Farklı Kur Bilgileri İçin Aşağıdan Seçim Yapabilirsiniz.</smal>
+<br />
+<br />
+<form method="post">
+    <select id="MovieType" name="currency" class="form-control">
+
+        <option value="TRY" selected="selected">TRY</option>
+
+        <option value="USD">USD</option>
+
+        <option value="EUR">EURO</option>
+    </select><br />
+    <input type="submit" value="Kur Getir" class="btn btn-success" />
+</form>
+
+<table class="table table-hover">
+    <tr>
+        <th>Kur Adı</th>
+        <th>Kur Oranı</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.currency </td>
+            <td>@item.exchange_rate_buy </td>
+        </tr>
+    }
+</table>
+
+
+
