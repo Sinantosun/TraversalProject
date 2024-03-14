@@ -1,0 +1,36 @@
+﻿using DataAccsesLayer.Concrete;
+using EntityLayer.Concrete;
+using TraversalProject.CQRS.Commands.DestinationCommands;
+
+namespace TraversalProject.CQRS.Handlers.DestinationHandlers
+{
+    public class CreateDestinationCommandHandler
+    {
+        private readonly Context _context;
+
+        public CreateDestinationCommandHandler(Context context)
+        {
+            _context = context;
+        }
+        public void Handle(CreateDestinationCommand command)
+        {
+            _context.Destinations.Add(new Destination
+            {
+                City = command.City,
+                Price = command.Price,
+                DayNight = command.DayNight,
+                Capacity = command.Capacity,
+                Status = true,
+                CoverImage="test",
+                Description="test",
+                Details1="test",
+                Details2="test",
+                Image="test",
+                Image2="test",
+
+                
+            });
+            _context.SaveChanges();
+        }
+    }
+}

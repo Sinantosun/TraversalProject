@@ -1,0 +1,21 @@
+﻿@model GetDestinationByIDQueryResult
+@{
+    ViewData["Title"] = "GetDestination";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>CQRS - Lokasyon Düzenleme Sayfası </h1>
+
+<form method="post">
+    <input type="hidden" class="form-control" asp-for="destinationID" />
+    @Html.Label("Şehir")
+    <input type="text" class="form-control" asp-for="city" />
+    <br />
+    @Html.Label("Gün - Gece")
+    <input type="text" class="form-control" asp-for="daynight" />
+    <br />
+    @Html.Label("Fiyat")
+    <input type="text" class="form-control" asp-for="price" />
+    <br />
+    <input type="submit" value="Güncelle" class="btn btn-outline-success"  />
+</form>
