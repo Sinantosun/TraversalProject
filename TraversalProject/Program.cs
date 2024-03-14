@@ -6,10 +6,12 @@ using DataAccsesLayer.Abstract;
 using DataAccsesLayer.Concrete;
 using DataAccsesLayer.EntityFreamework;
 using EntityLayer.Concrete;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog;
+using TraversalProject.CQRS.Handlers.DestinationHandlers;
 using TraversalProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,11 +28,22 @@ builder.Services.AddIdentity<AppUser, AppRole>(opts =>
     opts.User.AllowedUserNameCharacters = "abcçdefghiýjklmnoöpqrsþtuüvwxyzABCÇDEFGHIÝJKLMNOÖPQRSÞTUÜVWXYZ0123456789._";
 }).AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentiyValidator>().AddDefaultTokenProviders();
 
+builder.Services.AddScoped<GetAllDestinationQueryHandler>();
+builder.Services.AddScoped<GetDestinationByIDQueryHandler>();
+builder.Services.AddScoped<CreateDestinationCommandHandler>();
+builder.Services.AddScoped<RemoveDestinationCommandHandler>();
+builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+
+builder.Services.AddMediatR(typeof(Program));
+
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
 builder.Services.ConfigureApplicationCookie(opts => { opts.LoginPath = "/Login/SignIn"; });
+
 builder.Services.AddHttpClient();
+
 builder.Services.AddMvc(conf => { conf.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
