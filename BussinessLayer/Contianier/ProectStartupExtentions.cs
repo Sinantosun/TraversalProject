@@ -1,9 +1,12 @@
 ﻿
 using BussinessLayer.Abstract;
+using BussinessLayer.Abstract.AbstractUow;
 using BussinessLayer.AbstractValidator;
 using BussinessLayer.Concrete;
+using BussinessLayer.Concrete.UowConcrete;
 using DataAccsesLayer.Abstract;
 using DataAccsesLayer.EntityFreamework;
+using DataAccsesLayer.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BussinessLayer.Contianier
@@ -43,6 +46,11 @@ namespace BussinessLayer.Contianier
 
             services.AddScoped<IAnnounecementService, AnnouncementManager>();
             services.AddScoped<IAnnouncementDal, EFAnnouncementDal>();
+
+            services.AddScoped<IAccountServiceUow, AccountOuwManager>();
+            services.AddScoped<IAccountDal, EFAccountDal>();
+
+            services.AddScoped<IUowDal, UowDal>();
 
         }
     }

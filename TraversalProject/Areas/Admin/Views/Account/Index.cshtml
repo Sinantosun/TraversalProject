@@ -1,0 +1,29 @@
+﻿@model UpdateAccountDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["result"] != null)
+{
+    <div class="alert alert-@TempData["icon"]">
+        @TempData["result"].ToString()
+    </div>
+}
+
+
+
+<h1>Unit Of Work Para Transferi</h1>
+
+<form method="post">
+    <label>Gönderen</label>
+    @Html.DropDownListFor(x=>x.SenderID,(List<SelectListItem>)ViewBag.v, new {@class="form-control"})
+    <br />
+    <label>Alıcı</label>
+    @Html.DropDownListFor(x=>x.ReciverID,(List<SelectListItem>)ViewBag.v, new {@class="form-control"})
+    <br />
+    <label>Miktar</label>
+    <input type="text" asp-for="Amount" class="form-control" />
+    <br />
+    <input type="submit" class="btn btn-outline-primary" value="Hesaba Aktar" />
+</form>
