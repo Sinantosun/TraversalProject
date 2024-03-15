@@ -6,7 +6,7 @@ using EntityLayer.Concrete;
 
 namespace DataAccsesLayer.EntityFreamework
 {
-    public class EFAccountDal : GenericRepository<Account>, IAccountDal
+    public class EFAccountDal : GenericUowRepository<Account>, IAccountDal
     {
         public EFAccountDal(Context context) : base(context)
         {

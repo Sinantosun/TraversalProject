@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TraversalProject.Dtos.DestinationDtos;
 
 namespace TraversalProject.Controllers
 {
+    [AllowAnonymous]
     public class DestinationController : Controller
     {
 

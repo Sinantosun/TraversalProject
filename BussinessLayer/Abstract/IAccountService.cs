@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using BussinessLayer.Abstract.AbstractUow;
+using EntityLayer.Concrete;
 
 
 namespace BussinessLayer.AbstractValidator

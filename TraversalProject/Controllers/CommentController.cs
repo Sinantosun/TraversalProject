@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -6,6 +7,7 @@ using TraversalProject.Dtos.CommentDtos;
 
 namespace TraversalProject.Controllers
 {
+    [AllowAnonymous]
     public class CommentController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
