@@ -31,6 +31,13 @@ namespace ProjectAPI.Controllers
             return Ok(value);
         }
 
+        [HttpGet("DestinationForDefaultPage")]
+        public IActionResult DestinationForDefaultPage()
+        {
+            var value = mapper.Map<List<ResultDestinationDto>>(_destinationService.TGetList().Take(6));
+            return Ok(value);
+        }
+
         [HttpGet("{id}")]
         public IActionResult getDestinationByID(int id)
         {
@@ -63,8 +70,7 @@ namespace ProjectAPI.Controllers
                 value.DayNight=updateDestinationDto.DayNight;
                 value.Description=updateDestinationDto.Description;
                 value.DestinationID=updateDestinationDto.DestinationID;
-                value.Details1=updateDestinationDto.Details1;
-                value.Details2=updateDestinationDto.Details2;
+
                 value.Image=updateDestinationDto.Image;
                 value.Price=updateDestinationDto.Price;
                 

@@ -22,29 +22,41 @@
     <div class="py-5 w3l-homeblock1 text-center">
         <div class="container mt-md-3">
             <h3 class="blog-desc-big text-center mb-4">
-              @Model.City  Rota Detayı
+                @Model.City  Rota Detayı
             </h3>
         </div>
     </div>
     <section class="blog-post-main w3l-homeblock1">
 
 
-        <div class="container container-fluid">
-            <div class="col-md-12">
-                <img src="@Model.Image" style="width:100%; object-fit:contain; height:450px;" class="img-fluid radius-image" alt="">
-            </div>
-        </div>
-
         <div class="blog-content-inf pb-5">
             <div class="container pb-lg-4">
+
+                <div class="single-post-image">
+                    <div class="post-content">
+                        <img src="@Model.CoverImage"  class="radius-image img-fluid mb-5" alt="" />
+                    </div>
+                </div>
+
+                <br />
+
+
+                <div class="container container-fluid">
+                    <div class="col-md-12">
+                        <img src="@Model.Image" style="width:100%; object-fit:contain; height:450px;" class="img-fluid radius-image" alt="">
+                    </div>
+                </div>
+
                 <div class="single-post-content">
                     <div class="sing-post-thumb mb-5 row pt-3">
                     </div>
                     <h3 class="blog-desc-big m-0 mb-lg-4 mb-3">Rota Açıklaması</h3>
-                    <p class="mb-4">
-                        @Model.Description
+                    <p class="mb-4" style="text-transform:capitalize">
+                        <b>@Model.Description</b>
                     </p>
-
+                    <p class="mb-4">
+                        @(Model.LongDescription == null ? "Bu tur hakkkında detay açıklama bulunmuyor." : Model.LongDescription)
+                    </p>
                     <table class="table table-hover">
                         <tr>
                             <th>Gün Gece Sayısı</th>
