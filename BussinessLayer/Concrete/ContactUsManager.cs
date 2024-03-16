@@ -48,6 +48,7 @@ namespace BussinessLayer.Concrete
         public void TInsert(ContactUs t)
         {
             _contactUsDal.Insert(t);
+            
         }
 
         public void TUpdate(ContactUs t)

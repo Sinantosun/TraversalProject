@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+
+<section class="w3l-about-breadcrumb text-left">
+    <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+        <div class="container py-2">
+            <h2 class="title">Bize Ulaşın</h2>
+            <ul class="breadcrumbs-custom-path mt-2">
+                <li><a href="#url">Ana Sayfa</a></li>
+                <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> Bize Ulaşın </li>
+            </ul>
+        </div>
+    </div>g
+</section>
+
+<section class="w3l-contact" id="contact">
+ 
+   
+
+        <div class="container py-lg-3">
+        <div class="contact-infubd py-5">
+            @if (TempData["Icon"] != null)
+            {
+
+                <div class="alert alert-@TempData["Icon"]">
+                    @TempData["result"]
+                </div>
+
+            }
+            <div class="contact-grids row">
+
+                @await Component.InvokeAsync("_ListContactComonentPartial")
+               @Html.Partial("~/views/contact/_addcontact.cshtml")
+
+            </div>
+        </div>
+</section>
+
+

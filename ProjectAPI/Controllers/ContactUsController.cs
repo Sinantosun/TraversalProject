@@ -1,4 +1,7 @@
-﻿using BussinessLayer.AbstractValidator;
+﻿using AutoMapper;
+using BussinessLayer.AbstractValidator;
+using DtoLayer.ContactUSDtos;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +12,11 @@ namespace ProjectAPI.Controllers
     public class ContactUsController : ControllerBase
     {
         private readonly IContactUsSerivce _contactUsSerivce;
-
-        public ContactUsController(IContactUsSerivce contactUsSerivce)
+        private readonly IMapper _mapper;
+        public ContactUsController(IContactUsSerivce contactUsSerivce, IMapper mapper)
         {
             _contactUsSerivce = contactUsSerivce;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -20,6 +24,13 @@ namespace ProjectAPI.Controllers
         {
             var values = _contactUsSerivce.TgetListContactUsByTrue().OrderByDescending(x=>x.MessageDate);
             return Ok(values);
+        }
+        [HttpPost]
+        public IActionResult CreateContact(CreateContactUSDto createContactUSDto)
+        {
+            var mappedValues = _mapper.Map<ContactUs>(createContactUSDto);
+            _contactUsSerivce.TInsert(mappedValues);
+            return Ok("eklendi");
         }
     }
 }
