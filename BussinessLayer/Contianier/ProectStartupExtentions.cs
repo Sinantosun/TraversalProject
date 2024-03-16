@@ -50,6 +50,9 @@ namespace BussinessLayer.Contianier
             services.AddScoped<IAccountServiceUow, AccountOuwManager>();
             services.AddScoped<IAccountDal, EFAccountDal>();
 
+            services.AddScoped<IContactService, ContactManager>();
+            services.AddScoped<IContactDal, EFContactDal>();
+
             services.AddScoped<IUowDal, UowDal>();
 
         }
