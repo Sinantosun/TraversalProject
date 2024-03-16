@@ -23,10 +23,7 @@ namespace TraversalProject.CQRS.Handlers.DestinationHandlers
                 Status = true,
                 CoverImage="test",
                 Description="test",
-                Details1="test",
-                Details2="test",
                 Image="test",
-                Image2="test",
 
                 
             });

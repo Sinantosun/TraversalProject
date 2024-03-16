@@ -16,7 +16,7 @@ namespace TraversalProject.ViewComponents.Default
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var RessponseMessage = await client.GetAsync("http://localhost:5075/api/Destinations");
+            var RessponseMessage = await client.GetAsync("http://localhost:5075/api/Destinations/DestinationForDefaultPage");
             if (RessponseMessage.IsSuccessStatusCode)
             {
                 var content = await RessponseMessage.Content.ReadAsStringAsync();
