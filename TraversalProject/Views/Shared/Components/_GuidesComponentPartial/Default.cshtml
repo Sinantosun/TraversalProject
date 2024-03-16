@@ -1,0 +1,32 @@
+﻿@model ResultGuideDto
+
+<div class="author-card mt-5">
+    <div class="row align-items-center">
+        <div class="col-sm-3 col-6">
+            <div>
+                <img src="@Model.Image" alt="" class="rounded-circle img-fluid">
+            </div>
+        </div>
+        <div class="col-sm-9 mt-sm-0 mt-3">
+            <h3 class="mb-3 title">@Model.Name</h3>
+            <h6> <i>Tur Rehberi<i/> </h6><br />
+            <p>
+            @Model.Description2
+            </p>
+            <ul class="author-icons mt-4">
+                <li>
+                    <a class="twitter" href="@Model.TwitterUrl">
+                        <span class="fa fa-twitter"
+                              aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="instagram" href="@Model.InstagramUrl">
+                        <span class="fa fa-instagram"
+                              aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

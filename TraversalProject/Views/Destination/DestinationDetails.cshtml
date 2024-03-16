@@ -69,7 +69,10 @@
                             <td>@Model.Price.ToString("C2")</td>
                         </tr>
                     </table>
+           
+         
 
+                    @await Component.InvokeAsync("_GuidesComponentPartial")
 
                     @await Component.InvokeAsync("_CommentDestinationComponentPartial",new {id=ViewBag.FilterId})
                     @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
