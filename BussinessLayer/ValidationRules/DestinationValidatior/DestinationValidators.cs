@@ -15,10 +15,7 @@ namespace BussinessLayer.ValidationRules.DestinationValidatior
             RuleFor(x => x.DayNight).NotEmpty().WithMessage("Gün Gece Alanı Boş Geçilemez.");
             RuleFor(x => x.Description).NotEmpty().WithMessage("Açıkalma Boş Geçilemez.");
             RuleFor(x => x.Description).MaximumLength(100).WithMessage("Lütfen açıklamayı 100 karakden kısa tutun.");
-            RuleFor(x => x.Details1).NotEmpty().WithMessage("Detay 1 Alanı Boş Geçilemez.");
-            RuleFor(x => x.Details2).NotEmpty().WithMessage("Detay 2 Alanı Boş Geçilemez.");
             RuleFor(x => x.Image).NotEmpty().WithMessage("Görsel Alanı Boş Geçilemez.");
-            RuleFor(x => x.Image2).NotEmpty().WithMessage("Gösel 2 Alanı Boş Geçilemez.");
             RuleFor(x => x.Price).NotEmpty().WithMessage("Fiyat Alanı Boş Geçilemez.");
 
 

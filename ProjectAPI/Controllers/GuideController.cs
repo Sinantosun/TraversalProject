@@ -74,5 +74,13 @@ namespace ProjectAPI.Controllers
             var mappedValues = _guideService.TGetById(id);
             return Ok(mappedValues);
         }
+
+
+        [HttpGet("GetRandomGuide")]
+        public IActionResult GetRandomGuide()
+        {
+            var value = _guideService.TGetList().OrderBy(x => Guid.NewGuid()).First();
+            return Ok(value);
+        }
     }
 }
