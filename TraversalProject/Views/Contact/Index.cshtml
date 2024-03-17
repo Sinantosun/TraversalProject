@@ -1,10 +1,9 @@
-﻿@{
+﻿@model CreateContactUSDto
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_UILayout.cshtml";
 }
-
-
-
+<script src="~/js/jquery-3.4.1.min.js"></script>
 <section class="w3l-about-breadcrumb text-left">
     <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
         <div class="container py-2">
@@ -34,10 +33,95 @@
             <div class="contact-grids row">
 
                 @await Component.InvokeAsync("_ListContactComonentPartial")
-               @Html.Partial("~/views/contact/_addcontact.cshtml")
+
+                <div class="col-lg-6 mt-lg-0 mt-5 contact-right">
+                    <form asp-action="Index" asp-controller="Contact" method="post" class="signin-form">
+                        <div class="input-grids">
+                            <div class="form-group">
+                                <span class="inputmessageForName" style="color: red; display:none"></span>
+                                <input type="text" id="w3lName" placeholder="Ad Soyad *" onkeyup="TestOnTextChange('name',this.value)" asp-for="Name" class="contact-input" />
+                                <span asp-validation-for="Name" style="color: red;  "></span>
+                            </div>
+                            <div class="form-group">
+                                <span class="inputmessageForMail" style="color: red; display:none"></span>
+                                <input type="email" id="w3lSender" placeholder="Your Email*" onkeyup="TestOnTextChange('mail',this.value)" asp-for="Mail" class="contact-input" required="" />
+                                <span asp-validation-for="Mail" style="color: red;  "></span>
+
+                            </div>
+                            <div class="form-group">
+                                <span class="inputmessageForSubject" style="color: red; display:none"></span>
+                                <input type="text" id="w3lSubect" placeholder="Mesaj Başlık *" asp-for="Subject" onkeyup="TestOnTextChange('subject',this.value)" class="contact-input" />
+                                <span asp-validation-for="Subject" style="color: red;  "></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="mbodytextlenght"><b>0 / 500</b></span><br />
+                            <span class="mbodytextmessage" style="color: red; display:none">500 karakter sınırını aştınız lütfen mesajı kısaltın.</span>
+                            <textarea id="w3lMessage" onkeyup="TestOnTextChange2(value)" placeholder="Mesajınız *" asp-for="MessageBody" required=""></textarea>
+                            <span asp-validation-for="MessageBody" style="color: red;  "></span>
+                        </div>
+                        <div class="text-right">
+                            <input type="submit" class="btn btn-style btn-primary" value="Gönder" />
+                        </div>
+                    </form>
+                </div>
 
             </div>
         </div>
 </section>
 
 
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function TestOnTextChange2(data) {
+        if (data.length > 500) {
+            document.querySelector(".mbodytextlenght").style.color = 'red';
+            $(".mbodytextmessage").fadeIn();
+        }
+        else {
+            if (data.length <= 0) {
+                $(".mbodytextmessage").fadeIn();
+                document.querySelector(".mbodytextmessage").innerHTML = "Lüfen bu alanı doldurun";
+                document.querySelector(".mbodytextmessage").style.color = 'red';
+            }
+            else {
+                $(".mbodytextmessage").fadeOut();
+                document.querySelector(".mbodytextmessage").style.color = '#777';
+            }
+        }
+        document.querySelector(".mbodytextlenght").innerHTML = data.length + "/ 500";
+    }
+
+    function TestOnTextChange(elementName, value) {
+        console.log(value.length);
+
+        if (elementName == "name") {
+            if (value.length <= 0) {
+                document.querySelector(".inputmessageForName").innerHTML = "Lütfen bu alanı doldurun.";
+                $(".inputmessageForName").fadeIn();
+            }
+            else {
+                $(".inputmessageForName").fadeOut();
+            }
+        }
+        else if (elementName == "mail") {
+            if (value.length <= 0) {
+                document.querySelector(".inputmessageForMail").innerHTML = "Lütfen bu alanı doldurun.";
+                $(".inputmessageForMail").fadeIn();
+            }
+            else {
+                $(".inputmessageForMail").fadeOut();
+            }
+        }
+        else if (elementName == "subject") {
+            if (value.length <= 0) {
+                document.querySelector(".inputmessageForSubject").innerHTML = "Lütfen bu alanı doldurun.";
+                $(".inputmessageForSubject").fadeIn();
+            }
+            else {
+                $(".inputmessageForSubject").fadeOut();
+            }
+        }
+    }
+
+</script>
