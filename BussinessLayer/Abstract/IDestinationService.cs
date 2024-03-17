@@ -8,5 +8,6 @@ namespace BussinessLayer.AbstractValidator
         int TGetDestinationService();
         Destination TgetDestinationByCityName(string name);
         void TdeleteDestinationByCityName(string name);
+        List<Destination> TgetFourLastDestination();
     }
 }

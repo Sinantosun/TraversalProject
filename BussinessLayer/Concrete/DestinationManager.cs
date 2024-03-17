@@ -40,6 +40,11 @@ namespace BussinessLayer.Concrete
             return _IDestinationDal.getDestinationCount();
         }
 
+        public List<Destination> TgetFourLastDestination()
+        {
+           return _IDestinationDal.getFourLastDestination();
+        }
+
         public List<Destination> TGetList()
         {
             return _IDestinationDal.GetList();

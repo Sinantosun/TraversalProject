@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Serilog;
 using TraversalProject.CQRS.Handlers.DestinationHandlers;
 using TraversalProject.Models;
@@ -34,6 +35,8 @@ builder.Services.AddScoped<CreateDestinationCommandHandler>();
 builder.Services.AddScoped<RemoveDestinationCommandHandler>();
 builder.Services.AddScoped<UpdateDestinationCommandHandler>();
 
+
+
 builder.Services.AddMediatR(typeof(Program));
 
 var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -41,8 +44,8 @@ var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticat
 builder.Services.ConfigureApplicationCookie(opts => { opts.LoginPath = "/Login/SignIn"; });
 
 builder.Services.AddHttpClient();
-
-builder.Services.AddMvc(conf => { conf.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); });
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+builder.Services.AddMvc(conf => { conf.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
 var app = builder.Build();
 
@@ -64,7 +67,9 @@ app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+var suppertedCaltures = new[] { "en","fr","es","gr","de","tr" };
+var locationOpts = new RequestLocalizationOptions().SetDefaultCulture(suppertedCaltures[0]).AddSupportedCultures(suppertedCaltures).AddSupportedUICultures(suppertedCaltures);
+app.UseRequestLocalization(locationOpts);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

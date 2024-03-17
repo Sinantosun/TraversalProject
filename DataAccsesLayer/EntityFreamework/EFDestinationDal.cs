@@ -30,5 +30,11 @@ namespace DataAccsesLayer.EntityFreamework
             using var context = new Context();
             return context.Destinations.Count();
         }
+
+        public List<Destination> getFourLastDestination()
+        {
+            using var context = new Context();
+            return context.Destinations.OrderByDescending(x => x.DestinationID).Take(4).ToList();
+        }
     }
 }
