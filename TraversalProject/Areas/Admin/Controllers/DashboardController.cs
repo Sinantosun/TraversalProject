@@ -2,6 +2,7 @@
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    
     [Area("Admin")]
     public class DashboardController : Controller
     {

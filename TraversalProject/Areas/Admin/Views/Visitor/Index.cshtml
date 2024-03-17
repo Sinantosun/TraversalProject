@@ -3,27 +3,74 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<script src="~/js/jquery-3.4.1.min.js"></script>
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<h1>Index2</h1>
 
-<script type="text/javascript">
 
-    $(document).ready(() => {
 
-        var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5131/VisitorHub").build();
-        connection.start().then(() => {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+
+            var visitChartList = new Array();
+
+            visitChartList.push(["Tarih", "Edirne", "İstanbul", "Ankara", "Antalya", "Bursa"])
+
+            var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5131/VisitorHub").build();
+
             $("#connectionStatus").text(connection.state);
-        }).catch((err) => {
-            $("#connectionStatus").text("Bağlantı hatası: " + err); // Bağlantı kurulamadığında
-        });
 
-    })
+            connection.start().then(() => {
 
-</script>
+                setInterval(()=> {
+                connection.invoke("getVisitorList");
+                }, 1000);
+
+            $("#connectionStatus").text(connection.state);
+            }).catch((err) => { console.log(err) });
+
+
+        connection.on("ReciveVisitList", (visitList) => {
+
+                visitChartList = visitChartList.splice(0, 1);
+
+                visitList.forEach((item) => {
+
+                    visitChartList.push([item.visitDate, item.counts[0], item.counts[1], item.counts[2], item.counts[3], item.counts[4]])
+
+                })
+
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+            })
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable(visitChartList);
+
+                var options = {
+                    title: 'SignalR - Traversal Anlık Ziyaretçi Listesi',
+                    curveType: 'none',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
+
+        })
+    </script>
+
+
 
 <div class="container">
     <br />
     <div class="alert alert-warning">
-        Bağlantı durumu :<b><span id="connectionStatus"></span></b>
+        Bağlantınızın Durumu:<b id="connectionStatus"></b>
     </div>
 </div>
+<br />
+
+<div id="curve_chart" style="width: 1200px; height: 800px"></div>

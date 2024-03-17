@@ -11,11 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<PostgreDBSQLContext>(opts =>
-{
-    opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-});
+builder.Services.AddDbContext<SignalRContext>(opts => { opts.UseSqlServer(builder.Configuration["DefaultConnection"]); });
 builder.Services.AddCors(opts => opts.AddPolicy("CorsPolicy", optsBuilder =>
 {
     optsBuilder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowed(host => true);

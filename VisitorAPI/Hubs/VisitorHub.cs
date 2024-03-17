@@ -13,7 +13,7 @@ namespace VisitorAPI.Hubs
         }
         public async Task getVisitorList()
         {
-            await Clients.All.SendAsync("ReciveVisitList","bbb");
+            await Clients.All.SendAsync("ReciveVisitList",_visitorService.getVisitorChartList());
         }
     }
 }

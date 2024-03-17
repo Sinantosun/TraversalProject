@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace VisitorAPI.Migrations
 {
-    public partial class migration_first_ : Migration
+    public partial class mig_add_sql_api : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,11 +13,11 @@ namespace VisitorAPI.Migrations
                 name: "visitors",
                 columns: table => new
                 {
-                    VisitorID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    City = table.Column<int>(type: "integer", nullable: false),
-                    CityVisitCount = table.Column<int>(type: "integer", nullable: false),
-                    VisitDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    VisitorID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    City = table.Column<int>(type: "int", nullable: false),
+                    CityVisitCount = table.Column<int>(type: "int", nullable: false),
+                    VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
