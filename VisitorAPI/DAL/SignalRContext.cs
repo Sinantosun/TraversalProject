@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VisitorAPI.DAL
 {
-    public class PostgreDBSQLContext : DbContext
+    public class SignalRContext : DbContext
     {
-        public PostgreDBSQLContext(DbContextOptions<PostgreDBSQLContext> opts) : base(opts)
+        public SignalRContext(DbContextOptions<SignalRContext> opts) : base(opts)
         {
             
         }

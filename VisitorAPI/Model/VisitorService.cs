@@ -7,10 +7,10 @@ namespace VisitorAPI.Model
 {
     public class VisitorService
     {
-        private readonly PostgreDBSQLContext _context;
+        private readonly SignalRContext _context;
         private readonly IHubContext<VisitorHub> _hubContext;
 
-        public VisitorService(PostgreDBSQLContext postgreDBSQLContext, IHubContext<VisitorHub> hubContext)
+        public VisitorService(SignalRContext postgreDBSQLContext, IHubContext<VisitorHub> hubContext)
         {
             _context = postgreDBSQLContext;
             _hubContext = hubContext;
@@ -25,7 +25,7 @@ namespace VisitorAPI.Model
         {
             await _context.visitors.AddAsync(visitor);
             await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.SendAsync("ReciveVisitorList", "aa");
+            await _hubContext.Clients.All.SendAsync("ReciveVisitorList", getVisitorChartList());
         }
 
         public List<VisitorChart> getVisitorChartList()
@@ -33,7 +33,7 @@ namespace VisitorAPI.Model
             List<VisitorChart> visitorCharts = new List<VisitorChart>();
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "SELECT * FROM crosstab 'SELECT VisitDate,City, CityVisitCount FROM visitors ORDER BY 1, 2') AS ct (VisitDate DATE, City1 INT, City2, INT, City3 INT, City4 INT, City5 INT);";
+                command.CommandText = "Select tarih,[1],[2],[3],[4],[5] from (select[City],CityVisitCount,Cast([VisitDate] as Date) as tarih from visitors) as visitTable pivot (sum(CityVisitCount) For City in([1],[2],[3],[4],[5])) as pivottable order by tarih asc";
                 command.CommandType = System.Data.CommandType.Text;
                 _context.Database.OpenConnection();
                 using (var reader = command.ExecuteReader())
@@ -44,7 +44,15 @@ namespace VisitorAPI.Model
                         visitorChart.VisitDate = reader.GetDateTime(0).ToShortDateString();
                         Enumerable.Range(1, 5).ToList().ForEach(x =>
                         {
-                            visitorChart.Counts.Add(reader.GetInt32(x));
+                            if (DBNull.Value.Equals(reader[x]))
+                            {
+                                visitorChart.Counts.Add(0);
+                            }
+                            else
+                            {
+                                visitorChart.Counts.Add(reader.GetInt32(x));
+                            }
+                         
                         });
                         visitorCharts.Add(visitorChart);
 
