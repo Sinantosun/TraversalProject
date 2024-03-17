@@ -120,6 +120,15 @@ namespace ProjectAPI.Controllers
             }
         }
 
+        [HttpGet("getFourLastDestination")]
+        public IActionResult getFourLastDestination()
+        {
+            var value = mapper.Map<List<ResultDestinationDto>>(_destinationService.TgetFourLastDestination());
+            return Ok(value);
+        }
+
+
+
         [HttpPut]
         public IActionResult UpdateDestination(UpdateDestinationDto createDestinationDto)
         {

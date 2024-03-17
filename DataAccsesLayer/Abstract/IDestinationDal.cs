@@ -8,5 +8,7 @@ namespace DataAccsesLayer.Abstract
 
         Destination getDestinationByCityName(string name);
         void deleteDestinationByCityName(string name);
+
+        List<Destination> getFourLastDestination();
     }
 }

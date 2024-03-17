@@ -1,71 +1,29 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Index2</h1>
-
-@section Scripts{
-    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(() => {
-
-            var visitChartList = new Array();
-
-            visitChartList.push(["Tarih", "Edirne", "İstanbul", "Ankara", "Antalya", "Bursa"])
-
-            var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5131/VisitorHub").build();
-
-            $("#connectionStatus").text(connection.state);
-
-            connection.start().then(() => {
-                connection.invoke("getVisitorList");
-                $("#connectionStatus").text(connection.state);
-            }).catch((err) => { console.log(err) });
-
-
-            connection.on("ReciveVisitList", (visitList) => {
-
-                visitChartList = visitChartList.splice(0, 1);
-
-                visitList.forEach((item) => {
-
-                    visitChartList.push([item.visitDate, item.counts[0], item.counts[1], item.counts[2], item.counts[3], item.counts[4]])
-
-                })
-
-                drawChart(); // Call drawChart() after updating the data
-            })
-
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable(visitChartList);
-
-                var options = {
-                    title: 'SignalR - Traversal Anlık Ziyaretçi Listesi',
-                    curveType: 'none',
-                    legend: { position: 'bottom' }
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                chart.draw(data, options);
-            }
-
-        })
-    </script>
-}
-
-
-
-
-
-<div class="container">
-    <br />
-    <div class="alert alert-warning">
-        Bağlantınızın Durumu:<b id="connectionStatus"></b>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Çoklu Dil Desteği</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <p class="card-text">@localizer["Merhaba"] @localizer["Bugün"] @localizer["Hava"] @localizer["Çok"] @localizer["Güzel"]</p>
+                    <h2>@localizer["Bize"] @localizer["Ulaşın"]</h2>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<br />
-
-<div id="curve_chart" style="width: 1200px; height: 800px"></div>
