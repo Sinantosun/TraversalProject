@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(() => {
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5131/VisitorHub").build();
+        connection.start().then(() => {
+            $("#connectionStatus").text(connection.state);
+        }).catch((err) => {
+            $("#connectionStatus").text("Bağlantı hatası: " + err); // Bağlantı kurulamadığında
+        });
+
+    })
+
+</script>
+
+<div class="container">
+    <br />
+    <div class="alert alert-warning">
+        Bağlantı durumu :<b><span id="connectionStatus"></span></b>
+    </div>
+</div>

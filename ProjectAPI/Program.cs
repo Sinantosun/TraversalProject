@@ -11,6 +11,8 @@ using DataAccsesLayer.EntityFreamework;
 using DtoLayer.AnnouncementDtos;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using ProjectAPI.DAL;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -25,7 +27,6 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDbContext<Context>();
 builder.Services.ContainerDepencies();
-
 
 builder.Services.AddControllersWithViews().AddJsonOptions(opts =>
     opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
