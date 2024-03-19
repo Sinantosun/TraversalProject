@@ -12,6 +12,12 @@ namespace DataAccsesLayer.EntityFreamework
         {
         }
 
+        public List<Reservation> GetListReservationWithUserAndDestnation()
+        {
+            using var context = new Context();
+            return context.Reservations.Include(x => x.AppUser).Include(y => y.Destination).ToList();
+        }
+
         public List<Reservation> GetListWithReservationByAccepted(int id)
         {
             using var context = new Context();

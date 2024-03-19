@@ -8,7 +8,7 @@ using TraversalProject.Dtos.AccountDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/Account")]
     public class AccountController : Controller
@@ -31,9 +31,9 @@ namespace TraversalProject.Areas.Admin.Controllers
             {
                 var data = await responseMessage.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<SelectListItem>>(data);
-             
+
                 ViewBag.v = result;
-           
+
             }
             return View();
 

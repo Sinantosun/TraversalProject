@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DtoLayer", "DtoLayer\DtoLay
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAPI", "ProjectAPI\ProjectAPI.csproj", "{FA4C3C0E-0B61-4C42-B84D-573ED72B5ACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorAPI", "VisitorAPI\VisitorAPI.csproj", "{F4398177-8D1A-4D4B-82D5-17EB38EF5A19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorAPI", "VisitorAPI\VisitorAPI.csproj", "{F4398177-8D1A-4D4B-82D5-17EB38EF5A19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

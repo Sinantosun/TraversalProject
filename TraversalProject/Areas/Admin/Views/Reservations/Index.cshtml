@@ -1,0 +1,38 @@
+﻿@model List<ResultReservationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<h1>Rezervasyon Listesi</h1>
+<br />
+
+
+<table class="table table-hover">
+    <tr>
+        <td>Ad Soyad</td>
+        <td>Rota</td>
+        <td>Gün Gece Sayısı</td>
+        <td>Kişi Sayısı</td>
+        <td>Tarih</td>
+        <td>Açıklama</td>
+        <td>Durum</td>
+        <td>Onayla</td>
+        <td>Reddet</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-transform:capitalize">@item.NameSurname</td>
+            <td>@item.City</td>
+            <td>@item.DayNight</td>
+            <td>@item.PersonCount</td>
+            <td>@Convert.ToDateTime(item.ReservastionDate).ToString("D")</td>
+            <td>@item.Description</td>
+            <td>@item.Status</td>
+            <td><a href="admin/user/onay/@item.ReservationID" class="btn btn-success">Onayla</a></td>
+            <td><a href="admin/user/onay/@item.ReservationID" class="btn btn-danger">Reddet</a></td>
+        </tr>
+    }
+</table>

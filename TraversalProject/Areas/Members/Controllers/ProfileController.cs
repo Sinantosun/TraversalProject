@@ -8,6 +8,7 @@ using TraversalProject.Areas.Members.Dto.IdentityDtos;
 
 namespace TraversalProject.Areas.Members.Controllers
 {
+    [Authorize(Roles = "Member")]
     [Area("Members")]
     [Route("Members/[controller]/[action]")]
     public class ProfileController : Controller

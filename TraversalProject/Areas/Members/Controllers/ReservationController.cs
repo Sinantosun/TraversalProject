@@ -11,6 +11,7 @@ using TraversalProject.Dtos.ReservationDtos;
 
 namespace TraversalProject.Areas.Members.Controllers
 {
+    [Authorize(Roles = "Member")]
     [Area("Members")]
     [Route("Members/Reservation")]
     public class ReservationController : Controller

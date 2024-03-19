@@ -1,12 +1,14 @@
 ﻿using BussinessLayer.Abstract;
 using DtoLayer.LoginDtos;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TraversalProject.Dtos.MailDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class MailController : Controller
     {

@@ -55,7 +55,7 @@
         <th>#</th>
         <th>Ad Soyad</th>
         <th>Mail</th>
-        <th style="text-align:center" colspan="4">İslem</th>
+        <th style="text-align:center" colspan="2">İslem</th>
     </tr>
     <a class="btn btn-outline-primary" href="/Login/SignUp/">Yeni kullanıcı Kaydı</a>
     @foreach (var item in Model)
@@ -66,8 +66,6 @@
             <td style="text-transform:capitalize">@item.Name @item.Surname</td>
             <td>@item.Email</td>
             <td><input type="button" value="Sil" data-id="@item.Id" class="btn btn-outline-danger deleteuser" /></td>
-            <td><a class="btn btn-outline-success" href="/Admin/User/EditUser/@item.Id">Düzenle</a></td>
-            <td><a class="btn btn-outline-secondary" href="/Admin/User/CommentUser/@item.Id">Yorumlar</a></td>
             <td><a class="btn btn-outline-dark" href="/Admin/User/ReseravtionUser/@item.Id">Tur Geçmişi</a></td>
         </tr>
     }

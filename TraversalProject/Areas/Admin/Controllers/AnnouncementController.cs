@@ -7,7 +7,7 @@ using TraversalProject.Dtos.CommentDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/Announcement")]
     public class AnnouncementController : Controller

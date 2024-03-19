@@ -7,8 +7,9 @@ using TraversalProject.Dtos.RoleDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [AllowAnonymous]
+
     [Route("Admin/Role")]
     public class RoleController : Controller
     {

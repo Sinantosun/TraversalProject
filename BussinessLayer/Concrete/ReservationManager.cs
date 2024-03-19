@@ -33,6 +33,11 @@ namespace BussinessLayer.Concrete
             return _reservationDal.GetList();
         }
 
+        public List<Reservation> TGetListReservationWithUserAndDestnation()
+        {
+            return _reservationDal.GetListReservationWithUserAndDestnation();
+        }
+
         public List<Reservation> TGetListWithReservationByAccepted(int id)
         {
             return _reservationDal.GetListWithReservationByAccepted(id);
