@@ -11,6 +11,7 @@ using System.Web;
 
 namespace TraversalProject.Areas.Members.Controllers
 {
+    [Authorize(Roles = "Member")]
     [Area("Members")]
     public class DashboardController : Controller
     {

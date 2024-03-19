@@ -60,5 +60,12 @@ namespace ProjectAPI.Controllers
             var values = _mapper.Map<List<ResultReservationByIdDto>>(reservationService.TGetListWithReservationByAccepted(id));
             return Ok(values);
         }
+
+        [HttpGet("UserComments/{id}")]
+        public IActionResult UserComments(int id)
+        {
+            
+            return Ok();
+        }
     }
 }

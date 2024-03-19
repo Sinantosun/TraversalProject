@@ -38,6 +38,33 @@ namespace ProjectAPI.Controllers
             return Ok(mappedValues);
         }
 
+        [HttpGet("GetReservationList")]
+        public IActionResult GetReservationList()
+        {
+            List<ResultReservationDto> resultReservationDtos = new List<ResultReservationDto>();
+
+
+            var value = _reservationService.TGetListReservationWithUserAndDestnation();
+            foreach (var item in value)
+            {
+                resultReservationDtos.Add(new ResultReservationDto
+                {
+                    City = item.Destination.City,
+                    DayNight = item.Destination.DayNight,
+                    Description = item.Description,
+                    NameSurname = item.AppUser.Name + " " + item.AppUser.Surname,
+                    PersonCount = item.PersonCount,
+                    ReservastionDate = item.ReservastionDate,
+                    ReservationID = item.ReservationID,
+                    Status = item.Status
+
+                });
+            }
+
+
+            return Ok(resultReservationDtos);
+        }
+
         [HttpGet("GetCurrentReservations/id")]
         public IActionResult GetCurrentReservations(int id)
         {
@@ -52,6 +79,7 @@ namespace ProjectAPI.Controllers
             return Ok(mappedValues);
         }
 
+       
         [HttpPost]
         public IActionResult CreateReservation(CreateResarvationDto createResarvationDto)
         {

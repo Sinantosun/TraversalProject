@@ -8,5 +8,6 @@ namespace DataAccsesLayer.Abstract
         List<Reservation> GetListWithReservationByWaitApproval(int id);
         List<Reservation> GetListWithReservationByAccepted(int id);
         List<Reservation> GetListWithReservationByPrevious(int id);
+        List<Reservation> GetListReservationWithUserAndDestnation();
     }
 }

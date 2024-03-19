@@ -2,6 +2,7 @@
 using DataAccsesLayer.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -10,6 +11,7 @@ using TraversalProject.Dtos.GuideDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/Guide")]
     public class GuideController : Controller

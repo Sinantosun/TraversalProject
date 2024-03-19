@@ -5,6 +5,7 @@ using TraversalProject.Dtos.DestinationDtos;
 
 namespace TraversalProject.Areas.Members.Controllers
 {
+    [Authorize(Roles = "Member")]
     [Area("Members")]
     public class DestinationController : Controller
     {

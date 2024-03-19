@@ -171,7 +171,7 @@ namespace TraversalProject.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("","Kullanıcı Tanınamadı");
+                    ModelState.AddModelError("", "Hatalı Kullanıcı Adı Veya Şifre");
                     return View();
                 }
                

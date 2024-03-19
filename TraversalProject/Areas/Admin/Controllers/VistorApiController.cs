@@ -8,7 +8,7 @@ namespace TraversalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/VistorApi")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     public class VistorApiController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

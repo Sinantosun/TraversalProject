@@ -7,8 +7,8 @@ using TraversalProject.Dtos.BookingExchangeDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [AllowAnonymous]
     public class BookingHotelSearchController : Controller
     {
         public async Task<IActionResult> Index()

@@ -8,7 +8,7 @@ using TraversalProject.Dtos.BookingExchangeDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class ApiExchangeController : Controller
     {

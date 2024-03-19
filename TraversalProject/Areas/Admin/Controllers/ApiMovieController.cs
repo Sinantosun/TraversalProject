@@ -6,8 +6,8 @@ using TraversalProject.Dtos.MovieDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [AllowAnonymous]
     public class ApiMovieController : Controller
     {
         public async Task<IActionResult> Index()

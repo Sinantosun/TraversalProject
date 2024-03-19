@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class VisitorController : Controller
     {

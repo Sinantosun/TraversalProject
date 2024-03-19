@@ -6,6 +6,46 @@
 
 <h1>Yorum Listesi</h1>
 
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bilgilendirme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bu Yorumu Silmek İstediğinize Emin Misiniz? <br /> <strong>Bu İşlem Geri Alınamaz.</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Vazgeç</button>
+                <button type="button" class="btn btn-outline-dark deleteUserConfirm">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        var _Id = 0;
+        $(".deleteComment").click(function () {
+        
+            var modal = new bootstrap.Modal(document.getElementById("exampleModal"));
+            var btnId = $(this).data("id");
+            _Id = btnId;
+            modal.show();
+        });
+
+        $(".deleteUserConfirm").click(function () {
+            window.location.href = '/Admin/User/DeleteUser/' + _Id;
+            window.location.href = '/Admin/Comment/DeleteComment/' + _Id;
+        });
+
+    })
+</script>
+
 <table class="table table-hover">
     <tr>
 
@@ -22,7 +62,8 @@
             <td>@item.CommentUser</td>
             <td>@item.Destination.City</td>
             <td>@(((DateTime)item.CommentDate).ToString("dd-MMMM-yyyy"))</td>
-            <td><a class="btn btn-danger" href="/Admin/Comment/DeleteComment/@item.CommentID">Sil</a></td>
+            @*     <td><a class="btn btn-danger" href="/Admin/Comment/DeleteComment/@item.CommentID">Sil</a></td> *@
+            <td><button data-id="@item.CommentID" class="btn btn-danger deleteComment">Sil</button></td>
         </tr>
 
     }
