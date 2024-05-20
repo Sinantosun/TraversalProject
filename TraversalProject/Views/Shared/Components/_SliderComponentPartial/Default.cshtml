@@ -1,4 +1,5 @@
-﻿<section class="w3l-main-slider" id="home">
+﻿@model SearchDestinationDto
+<section class="w3l-main-slider" id="home">
     <div class="banner-content">
         <div id="demo-1"
              data-zs-src='["/Traversal-Liberty/assets/images/banner1.jpg", "/Traversal-Liberty/assets/images/banner2.jpg","/Traversal-Liberty/assets/images/banner3.jpg", " /Traversal-Liberty/assets/images/banner4.jpg"]'
@@ -9,25 +10,14 @@
                         <h3>Seyahatler İçin Uzağa Gitmeye Gerek Yok!</h3>
                         <h6 class="mb-3">Bir Sonraki Maceranı Hemen Planla</h6>
                         <div class="flex-wrap search-wthree-field mt-md-5 mt-4">
-                            <form action="#" method="post" class="booking-form">
+                            <form asp-controller="Default" asp-action="SearchDestination" method="post" class="booking-form">
                                 <div class="row book-form">
                                     <div class="form-input col-md-4 mt-md-0 mt-3">
-
-                                        <select name="selectpicker" class="selectpicker">
-                                            <option value="">Rotalar</option>
-                                            <option value="africa">Ukranya</option>
-                                            <option value="america">Almanya</option>
-                                            <option value="asia">Belçika - Hollanda</option>
-                                            <option value="eastern-europe">Balkan Turu</option>
-                                            <option value="europe">Mısır Turu</option>
-                                            <option value="south-america">İspanya Tunus</option>
-                                            <option value="south-america">Doğu Anadaolu Gezisi</option>
-                                        </select>
-
+                                        @Html.DropDownListFor(x=>x.DestinationID,(List<SelectListItem>)TempData["sliderResult"],"Seçiniz.",new {@class="selectpicker"})
                                     </div>
                                     <div class="form-input col-md-4 mt-md-0 mt-3">
-
-                                        <input type="date" name="" placeholder="Date" required="">
+                                
+                                        <input type="date" asp-for="DestinationDate"  placeholder="Tarih Seçiniz" required="">
                                     </div>
                                     <div class="bottom-btn col-md-4 mt-md-0 mt-3">
                                         <button class="btn btn-style btn-secondary">

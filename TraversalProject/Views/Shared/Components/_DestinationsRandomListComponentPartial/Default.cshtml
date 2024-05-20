@@ -1,0 +1,22 @@
+﻿@model List<ResultDestinationDto>
+
+
+
+<section class="w3l-grids1">
+    <div class="hny-three-grids py-5">
+        <div class="container py-lg-5">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 col-sm-6 mt-0 grids5-info">
+                        <a href="#url"><img src="@item.Image" class="img-fluid" alt=""></a>
+                        <h5>@item.DayNight</h5>
+                        <h4><a href="/Destination/DestinationDetails/@item.DestinationID">@item.City</a></h4>
+                        <p>@item.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

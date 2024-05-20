@@ -1,0 +1,57 @@
+﻿@model List<ResultAboutDtos>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<section class="w3l-about-breadcrumb text-left">
+    <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+        <div class="container py-2">
+            <h2 class="title">About Us</h2>
+            <ul class="breadcrumbs-custom-path mt-2">
+                <li><a href="#url">Ana Sayfa</a></li>
+                <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> Hakkımızda </li>
+            </ul>
+        </div>
+    </div>
+</section>
+@foreach (var item in Model)
+{
+    <section class="w3l-cta4 py-5">
+        <div class="container py-lg-5">
+            <div class="ab-section text-center">
+                <h6 class="sub-title">Hakkımızda</h6>
+                <h3 class="hny-title">@item.Title</h3>
+                <p class="py-3 mb-3">
+                    @item.Description
+                </p>
+                <a href="/Destination/Index" class="btn btn-style btn-primary mt-4">Rotalar</a>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-9 mx-auto">
+                    <img src="@item.Image1" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="w3l-content-6 py-5">
+        <div class="container py-lg-5">
+            <div class="row">
+                <div class="col-lg-6 content-6-left pr-lg-5">
+                    <h6 class="sub-title">Neden Biz?</h6>
+                    <h3 class="hny-title">@item.Title2</h3>
+                </div>
+                <div class="col-lg-6 content-6-right mt-lg-0 mt-4">
+                    <p class="mb-3">
+                        @Html.Raw(item.Description2)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+@await Component.InvokeAsync("_DestinationsRandomListComponentPartial");

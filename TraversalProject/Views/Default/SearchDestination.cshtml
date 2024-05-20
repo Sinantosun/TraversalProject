@@ -1,0 +1,65 @@
+﻿@model List<ResultDestinationDto>
+@{
+    ViewData["Title"] = "SearchDestination";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<h1>Arama Sonucu</h1>
+<section class="w3l-about-breadcrumb text-left">
+    <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
+        <div class="container">
+            <h2 class="title">Rotalar </h2>
+            <ul class="breadcrumbs-custom-path mt-2">
+                <li><a href="/Default/Index">Ana Sayfa</a></li>
+                <li class="active"><span class="fa fa-arrow-right mx-2" aria-hidden="true"></span> Rotalar </li>
+            </ul>
+        </div>
+    </div>
+</section>
+@if (Model.Count > 0)
+{
+
+     
+
+        <section class="grids-1 py-5">
+            <div class="grids py-lg-5 py-md-4">
+                <div class="container">
+                    <h3 class="hny-title mb-5">Tur Rotaları</h3>
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-4 col-6">
+                                <div class="column">
+                                    <a href="/Destination/DestinationDetails/@item.DestinationID"><img src="@item.Image" alt="" class="img-fluid"></a>
+                                    <div class="info">
+                                        <h4><a href="/Destination/DestinationDetails/@item.DestinationID">@item.City</a></h4>
+                                        <p>@item.Description </p>
+                                        <div class="dst-btm">
+                                            <h6 class="">Başlıyan Fiyatlarla</h6>
+                                            <span>@(Convert.ToDecimal(item.Price).ToString("C2"))</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+   
+}
+else
+{<br /><br />
+    <div class="col-md-12">
+        <div class="alert alert-info">
+            Aradığınız sonuç bulunamadı.<br>
+            <small><a href="/default/index/">Ana sayfaya dön</a></small>
+        </div>
+    </div>
+    <br />
+    <br />
+}
+

@@ -9,5 +9,6 @@ namespace BussinessLayer.AbstractValidator
         Destination TgetDestinationByCityName(string name);
         void TdeleteDestinationByCityName(string name);
         List<Destination> TgetFourLastDestination();
+        List<Destination> TgetDestinationBySearchFilter(int CityID, string dateTime);
     }
 }

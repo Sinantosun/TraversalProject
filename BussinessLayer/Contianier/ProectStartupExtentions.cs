@@ -55,6 +55,9 @@ namespace BussinessLayer.Contianier
 
             services.AddScoped<IUowDal, UowDal>();
 
+            services.AddScoped<IAboutService, AboutManager>();
+            services.AddScoped<IAboutDal, EFAboutDal>();
+
         }
     }
 }
