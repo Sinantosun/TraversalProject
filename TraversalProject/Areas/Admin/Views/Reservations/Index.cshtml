@@ -5,7 +5,7 @@
     int count = 0;
 }
 
-<h1>Rezervasyon Listesi</h1>
+<h1>Onay Bekliyen Rezervasyon Listesi</h1>
 <br />
 
 
@@ -29,7 +29,14 @@
             <td>@item.DayNight</td>
             <td>@item.PersonCount</td>
             <td>@Convert.ToDateTime(item.ReservastionDate).ToString("D")</td>
-            <td>@item.Description</td>
+            @if (item.Description == "Açıklama Yok")
+            {
+                <td>@item.Description</td>
+            }
+            else
+            {
+                <td><button class="btn btn-warning"> Aç</button></td>
+            }
             <td>@item.Status</td>
             <td><a href="admin/user/onay/@item.ReservationID" class="btn btn-success">Onayla</a></td>
             <td><a href="admin/user/onay/@item.ReservationID" class="btn btn-danger">Reddet</a></td>

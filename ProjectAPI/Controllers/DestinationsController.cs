@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BussinessLayer.AbstractValidator;
 using BussinessLayer.ValidationRules.DestinationValidatior;
+using DataAccsesLayer.Concrete;
 using DtoLayer.DestinationDtos;
 using DtoLayer.GenericNotificationDtos;
 using EntityLayer.Concrete;
@@ -8,6 +9,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProjectAPI.Controllers
 {
@@ -31,10 +33,17 @@ namespace ProjectAPI.Controllers
             return Ok(value);
         }
 
+        [HttpGet("SearchDestination")]
+        public ActionResult SearchDestination(int CityID, string datetime)
+        {
+            var findValue = _destinationService.TgetDestinationBySearchFilter(CityID, datetime);
+            return Ok(findValue);
+        }
+
         [HttpGet("DestinationForDefaultPage")]
         public IActionResult DestinationForDefaultPage()
         {
-            var value = mapper.Map<List<ResultDestinationDto>>(_destinationService.TGetList().Take(6));
+            var value = mapper.Map<List<ResultDestinationDto>>(_destinationService.TGetList().OrderBy(x => Guid.NewGuid())).Take(6);
             return Ok(value);
         }
 
@@ -59,26 +68,27 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPut("updateDestinationByCityName")]
-        public IActionResult updateDestinationByCityName(UpdateDestinationDto updateDestinationDto,string name)
+        public IActionResult updateDestinationByCityName(UpdateDestinationDto updateDestinationDto, string name)
         {
             var value = _destinationService.TgetDestinationByCityName(name);
             if (value != null)
             {
                 value.Capacity = updateDestinationDto.Capacity;
-                value.City=updateDestinationDto.City;
-                value.CoverImage=updateDestinationDto.CoverImage;
-                value.DayNight=updateDestinationDto.DayNight;
-                value.Description=updateDestinationDto.Description;
-                value.DestinationID=updateDestinationDto.DestinationID;
+                value.City = updateDestinationDto.City;
+                value.CoverImage = updateDestinationDto.CoverImage;
+                value.DayNight = updateDestinationDto.DayNight;
+                value.Description = updateDestinationDto.Description;
+                value.DestinationID = updateDestinationDto.DestinationID;
 
-                value.Image=updateDestinationDto.Image;
-                value.Price=updateDestinationDto.Price;
-                
+                value.Image = updateDestinationDto.Image;
+                value.Price = updateDestinationDto.Price;
+
                 _destinationService.TUpdate(value);
                 return Ok();
             }
             return BadRequest();
         }
+
 
 
         [HttpDelete("deleteDestinationByCityName/{name}")]
@@ -159,6 +169,13 @@ namespace ProjectAPI.Controllers
             {
                 return BadRequest(x.Message);
             }
+        }
+
+        [HttpGet("GetRandomDestinations")]
+        public IActionResult GetRandomDestinations()
+        {
+            var value = _destinationService.TGetList().OrderBy(x => Guid.NewGuid()).Take(3);
+            return Ok(value);
         }
 
     }

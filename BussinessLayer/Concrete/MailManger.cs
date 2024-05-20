@@ -14,7 +14,7 @@ namespace BussinessLayer.Concrete
             {
                 MimeMessage mimeMessage = new MimeMessage();
 
-                MailboxAddress mailAddresFrom = new MailboxAddress("Traversal", "aspnetcoreprojeler@gmail.com");
+                MailboxAddress mailAddresFrom = new MailboxAddress("Cv Admin", "sinantosuncvsite@gmail.com");
                 mimeMessage.From.Add(mailAddresFrom);
 
                 MailboxAddress mailAdressTo = new MailboxAddress("Üye", Mail);
@@ -29,7 +29,7 @@ namespace BussinessLayer.Concrete
 
                 SmtpClient client = new SmtpClient();
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("aspnetcoreprojeler@gmail.com", "wpyahgokfqqxmgll");
+                client.Authenticate("sinantosuncvsite@gmail.com", "lhtn sndy dqqs mncm");
                 client.Send(mimeMessage);
                 client.Disconnect(true);
 

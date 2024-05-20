@@ -17,7 +17,7 @@ namespace DtoLayer.DestinationDtos
         public string? LongDescription { get; set; }
         public int Capacity { get; set; }
         public bool Status { get; set; }
-
+        public DateTime DestinationDate { get; set; }
         public string CoverImage { get; set; }
     }
 }

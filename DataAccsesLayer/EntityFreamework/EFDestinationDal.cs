@@ -2,6 +2,7 @@
 using DataAccsesLayer.Concrete;
 using DataAccsesLayer.Repository;
 using EntityLayer.Concrete;
+using System.Xml.Linq;
 
 namespace DataAccsesLayer.EntityFreamework
 {
@@ -23,6 +24,13 @@ namespace DataAccsesLayer.EntityFreamework
         {
             using var context = new Context();
             return context.Destinations.FirstOrDefault(x => x.City == name);
+        }
+
+        public List<Destination> getDestinationBySearchFilter(int CityID, string dateTime)
+        {
+            DateTime dt = Convert.ToDateTime(dateTime);
+            using var context = new Context();
+            return context.Destinations.Where(x => x.DestinationID == CityID && x.DestinationDate == dt).ToList();
         }
 
         public int getDestinationCount()

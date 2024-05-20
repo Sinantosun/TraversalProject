@@ -35,6 +35,11 @@ namespace BussinessLayer.Concrete
             return _IDestinationDal.getDestinationByCityName(name);
         }
 
+        public List<Destination> TgetDestinationBySearchFilter(int CityID, string dateTime)
+        {
+            return _IDestinationDal.getDestinationBySearchFilter(CityID, dateTime);
+        }
+
         public int TGetDestinationService()
         {
             return _IDestinationDal.getDestinationCount();

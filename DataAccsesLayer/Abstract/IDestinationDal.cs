@@ -10,5 +10,7 @@ namespace DataAccsesLayer.Abstract
         void deleteDestinationByCityName(string name);
 
         List<Destination> getFourLastDestination();
+
+        List<Destination> getDestinationBySearchFilter(int CityID,string dateTime);
     }
 }

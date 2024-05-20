@@ -10,8 +10,8 @@ namespace ProjectAPI.Controllers
     public class TestController : ControllerBase
     {
 
-        [HttpGet]
-        public IActionResult Invoke()
+        [HttpGet("Invoke")]
+        public IActionResult Invoke(int id=1, string status="")
         {
             return Ok();
         }
