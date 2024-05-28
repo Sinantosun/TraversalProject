@@ -23,8 +23,8 @@ namespace TraversalProject.Areas.Admin.Controllers
                 RequestUri = new Uri("https://booking-com.p.rapidapi.com/v1/metadata/exchange-rates?currency=TRY&locale=en-gb"),
                 Headers =
             {
-                { "X-RapidAPI-Key", "26a94699b7mshf92c10fadb7e461p155d6cjsn8e4aae7a4ad2" },
-                { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+                { "X-RapidAPI-Key", "key" },
+                { "X-RapidAPI-Host", "host" },
             },
             };
             using (var response = await client.SendAsync(request))
