@@ -19,8 +19,8 @@ namespace TraversalProject.Areas.Admin.Controllers
                 RequestUri = new Uri("https://imdb-top-100-movies.p.rapidapi.com/"),
                 Headers =
     {
-        { "X-RapidAPI-Key", "REMOVED" },
-        { "X-RapidAPI-Host", "imdb-top-100-movies.p.rapidapi.com" },
+        { "X-RapidAPI-Key", "key" },
+        { "X-RapidAPI-Host", "host" },
     },
             };
             using (var response = await client.SendAsync(request))
