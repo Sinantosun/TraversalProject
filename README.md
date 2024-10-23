@@ -32,29 +32,31 @@ Projede turizm acentesinin müşterilerini kaydettiği, müşterilerin online re
 
 ✈️Siteye yabancılar girebilir diyerek çoklu dil desteğini dahil edildi.<br>
 
-![image01](https://github.com/user-attachments/assets/36f45988-78d2-4066-bafd-22f9fc0dba66)
 
-![image02](https://github.com/user-attachments/assets/cd2d39ef-a1c2-4fd1-b49d-59cdfe1ace2c)
+![image01](https://github.com/user-attachments/assets/f5dd0da3-2906-4a53-b118-b3b20e52a805)
 
-![image03](https://github.com/user-attachments/assets/b48b77f2-b332-4ad7-92a1-7b3a7327adf3)
+![image02](https://github.com/user-attachments/assets/d553f11b-e14e-4017-ad60-dc369612c44f)
 
-![image04](https://github.com/user-attachments/assets/22d80048-7cf0-4b44-be2b-ca40a26f923b)
+![image03](https://github.com/user-attachments/assets/5718141c-2cc1-44c4-9bad-0797cb326e07)
 
-![image05](https://github.com/user-attachments/assets/f95d8dd7-0d09-4f05-a89a-ddbb1189359c)
+![image04](https://github.com/user-attachments/assets/ea5e757d-4cdc-485a-a5c8-91969d01820d)
 
-![image06](https://github.com/user-attachments/assets/dec62682-5179-4179-900d-87e45fb49bc7)
+![image05](https://github.com/user-attachments/assets/c38f347c-8ae2-4f3e-b770-e50a67c2419b)
 
-![image07](https://github.com/user-attachments/assets/46f115e1-566a-4e3c-849e-aab5671020de)
+![image06](https://github.com/user-attachments/assets/b9f85d2f-f6c8-4bc6-9f9a-8b502da0ccdc)
 
-![image08](https://github.com/user-attachments/assets/128053c8-a738-4a95-b21c-29b279c02a29)
+![image07](https://github.com/user-attachments/assets/1f4f8ba7-5fed-46f9-80f9-c7bf7488e7a2)
 
-![image09](https://github.com/user-attachments/assets/3df5a3f8-c7ae-4c25-93bd-d04509ac15ce)
+![image08](https://github.com/user-attachments/assets/44ea39ab-0b54-4c24-acb5-5acd0e16408b)
 
-![image10](https://github.com/user-attachments/assets/7728cdc4-c60e-47d2-974e-8743a919363c)
+![image09](https://github.com/user-attachments/assets/e4415886-a183-4d09-a9d9-d4964e17c4c3)
 
-![image11](https://github.com/user-attachments/assets/85c65154-b67e-4c1f-8136-3dd9e1df2f22)
+![image10](https://github.com/user-attachments/assets/c54cc644-b199-41e2-9e20-65f90b49e498)
 
-![image12](https://github.com/user-attachments/assets/d2c8c98f-b11a-426b-bcae-1df58e45fd7e)
+![image11](https://github.com/user-attachments/assets/b050bc59-e76d-4f93-a08a-d3c5608ca3c9)
+
+![image12](https://github.com/user-attachments/assets/ef6ec0a0-c1ba-45d1-9039-296868810751)
+
 
 
 
