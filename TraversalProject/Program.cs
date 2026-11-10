@@ -45,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(opts => { opts.LoginPath = "/Login/S
 
 builder.Services.AddHttpClient();
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
-builder.Services.AddMvc(conf => { conf.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+//builder.Services.AddMvc(conf => { conf.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy)); }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
 var app = builder.Build();
 

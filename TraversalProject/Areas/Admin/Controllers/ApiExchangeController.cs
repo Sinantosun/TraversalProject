@@ -8,10 +8,11 @@ using TraversalProject.Dtos.BookingExchangeDtos;
 
 namespace TraversalProject.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   
     [Area("Admin")]
     public class ApiExchangeController : Controller
     {
+   
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -47,8 +48,8 @@ namespace TraversalProject.Areas.Admin.Controllers
                 RequestUri = new Uri($"https://booking-com.p.rapidapi.com/v1/metadata/exchange-rates?currency={currency}&locale=en-gb"),
                 Headers =
             {
-                { "X-RapidAPI-Key", "REMOVED" },
-                { "X-RapidAPI-Host", "booking-com.p.rapidapi.com" },
+                   { "X-RapidAPI-Key", "key" },
+                { "X-RapidAPI-Host", "host" },
             },
             };
             using (var response = await client.SendAsync(request))
